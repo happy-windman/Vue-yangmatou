@@ -57,10 +57,11 @@ export default Vue.extend({
     this.loadMore = false;
     let bscroll = new BScroll(".bscroll", {
       pullUpLoad: true,
-      click: true,
+      // click: true,
       probeType: 2,
       preventDefault: false,
       pullUpLoad: true
+      
     });
 
     bscroll.on("pullingUp", async () => {

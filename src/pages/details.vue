@@ -2,458 +2,372 @@
   <div class="detail_main">
     <myHeader :path="path"></myHeader>
     <div class="bscroll">
-    <div class="details-wrap">
-      <div class="details-swiper">
-        <van-swipe @change="onChange">
-          <van-swipe-item v-for="(img,index) in detailsImg" :key="index">
-            <img :src="img" width="100%" style="height:10rem" />
-          </van-swipe-item>
-
-          <div class="custom-indicator" slot="indicator">{{ current + 1 }}/8</div>
-        </van-swipe>
-      </div>
-
-      <div class="product-info">
-        <div class="productinfo-content">
-          <div class="product-name">
-            <span class="tag">包邮包税</span>
-            <span class="name">韩国爱茉莉护发精油发油女卷发修复护理改善防毛躁烫后护卷柔顺</span>
-          </div>
-          <div class="product-price">
-            <span class="interval-price">
-              <i>¥&nbsp;</i>39~72
-            </span>
-          </div>
-          <div class="product-activity">
-            <span class="name">活动价￥38.8起，黑五狂欢价</span>
-            <span class="day">11月22日00:00准时开始</span>
-          </div>
-        </div>
-        <div class="seller-coupon">
-          <div class="coupon-btn" @click="onclickDown('coupon')">
-            <div class="tag"></div>
-            <div class="list">
-              <span class="item">
-                <i class="tag-before"></i>满1999减60
-                <i class="tag-after"></i>
-              </span>
-            </div>
-          </div>
-            <van-action-sheet
-            v-model="show"
-            :cancel-text="downType=='specs'?'':'取消'"
-            @cancel="onCancel"
-          >
-            <div class="coupon-pop iphonex show" v-if="downType=='coupon'">
-              <div class="title">买手优惠券</div>
-              <div class="list">
-                <div class="item">
-                  <div class="cart">
-                    <div class="price">
-                      ¥
-                      <i>60</i>
-                    </div>
-                    <div class="rule">满1999元可用</div>
-                  </div>
-                  <div class="info">
-                    <div class="name">
-                      <span>买手券</span>限买手(首尔姐妹花)商品
-                    </div>
-                    <div class="time">2019.11.22-2019.11.25</div>
-                    <div
-                      module_index
-                      module_name="coupon"
-                      sproductid="66419dbb-8f6c-4c36-925d-5aba6c6ba017"
-                      sellerid="20927755"
-                      class="btn"
-                    >点击领取</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="logistics-pop iphonex show" v-if="downType=='logistics-pop'">
-              <div class="item">
-                <div class="name">虚拟发货</div>
-                <div class="desc">支付成功且买手接单后，将自动闪电发货</div>
-              </div>
-              <div class="pic">
-                <img src="//s1.ymatou.com/itemm/static/img/log-pinyou.e8056fe.png" />
-              </div>
-            </div>
-            <div class="sku-pop" v-if="downType=='specs'">
-              <div class="sku-content">
-                <div class="sku-info">
-                  <div
-                    class="pic"
-                    style="background-image: url(&quot;http://pic1.ymatou.com/G02/shangou/M06/E3/0C/CgvUBFn3-pCAMPZoAAP9GA9bkWQ240_1_1_n_w_lb.jpg&quot;);"
-                  ></div>
-                  <div class="desc">
-                    <span class="price">
-                      <i>¥&nbsp;</i>39~72
-                    </span>
-                    <span class="stock"></span>
-                    <span class="choosed">请选择: 规格分类</span>
-                  </div>
-                </div>
-                <div class="spec-wrap">
-                  <div class="spec">
-                    <div class="title">规格分类</div>
-                    <div class="options">
-                      <span class="sku active">黄色-2瓶</span>
-                      <span class="sku">黄色-经典款-70ml</span>
-                      {
-                      "value": ""
-                      }
-                    </div>
-                  </div>
-                </div>
-                <div class="purchase-amount">
-                  <div class="text">
-                    <span class="title">
-                      购买数量
-                      <br />
-                    
-                    </span>
-                  </div>
-                  <div class="amount">
-                    <input type="button" value="-" onclick class="btn-minus" />
-                    <span class="num">1</span>
-                    <input type="button" value="+" onclick class="btn-plus" />
-                  </div>
-                </div>
-              </div>
-              <div class="preorder-pop-layer preorder-pop-layer-active">
-               
-              </div>
-              <div class="spec-confirm">
-                <span class="half">加入购物车</span>
-                <span class="half">立即购买</span>
-              </div>
-            </div>
-      </van-action-sheet>
-        </div>
-      </div>
-
-      <div class="logistics-freight-server">
-        <div class="logistics-wrap" @click="onclickDown('logistics-pop')">
-          <div class="logistics-info">
-            <span class="tag">物流</span>
-            <span class="value">
-              拼邮
-              <i data-v-5152bdb0>，韩国发货</i>
-            </span>
-          </div>
-          <div class="logistic-time"></div>
-        </div>
-        <div class="logistics-wrap">
-          <span class="tag">运费</span>
-          <span class="value">包邮</span>
-        </div>
-        <div class="server-wrap">
-          <span class="tag-server">假一赔三</span>
-          <span class="tag-server">售后无忧</span>
-        </div>
-      </div>
-
-      <div class="sku-wrap">
-        <div class="sku-btn" @click="onclickDown('specs')">
-          <span class="tag">选择</span>
-          <span class="value">规格分类</span>
-        </div>
-        <!---->
-      </div>
-
-      <div class="buyer-rate">
-        <div class="m-title">
-          <span>
-            <i class="cro-fl"></i>评价
-            <i class="cro-fr"></i>
-          </span>
-        </div>
-        <div class="b-title">
-          <span class="name">买家评价</span>
-          <span class="rate">
-            <i class="full"></i>
-            <i class="full"></i>
-            <i class="full"></i>
-            <i class="full"></i>
-            <i class="full"></i>
-          </span>
-          <span class="num">4.7</span>
-          <span
-            module_index
-            module_name="pingjia"
-            sproductid="04f8bcd8-a103-40e0-8fa7-1e11bb19308f"
-            sellerid="20927755"
-            class="more"
-          >查看全部455条</span>
-        </div>
-        <div class="tag-content">
-          <div class="tag-name">购买过该商品的用户认为</div>
-          <!---->
-        </div>
-        <div class="note-list">
-          <div class="note-item">
-            <div class="content">
-              <div class="info">
-                <div class="buyer">
-                  <div class="avg">
-                    <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
-                  </div>
-                  <div class="name">我**哒</div>
-                  <div class="grade lever2">123</div>
-                </div>
-                <div class="desc">用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
-              </div>
-              <div class="pic lazyload transition">
-                <!---->
-              </div>
-            </div>
-          </div>
-          <div class="note-item">
-            <div class="content">
-              <div class="info">
-                <div class="buyer">
-                  <div class="avg">
-                    <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
-                  </div>
-                  <div class="name">我**哒</div>
-                  <div class="grade lever2">123</div>
-                </div>
-                <div class="desc">用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
-              </div>
-              <div class="pic lazyload transition">
-                <!---->
-              </div>
-            </div>
-          </div>
-
-          <div class="note-more">
-            <span>
-              查看全部
-              <br />MORE
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="seller-wrap">
-        <div class="seller-info">
-          <div
-            class="pic lazyload transition"
-            style="opacity: 1; background-image: url(&quot;http://pic1.ymatou.com/G02/M02/B5/A6/CgvUA1cJy6-AQ2x0AACCgx58y1A969_m.jpg&quot;);"
-          ></div>
-          <div class="info">
-            <div class="name">重返18岁</div>
-            <div class="type-coutry">
-              <span class="selle-type">
-                <!---->
-                <i>专业买手</i>
-                <!---->
-                <!---->
-                <i class="num hign">4.8</i>
-              </span>
-              <span class="contry">
-                <img src="http://img.ymatou.com/app/flag/circle/Thailand.png" />泰国
-              </span>
-            </div>
-          </div>
-          <!---->
-          <div
-            module_index
-            module_name="follow_seller"
-            sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
-            sellerid="13985654"
-            class="btn-follow"
-          >
-            <i class="tag follow"></i>未关注
-          </div>
-        </div>
-        <div class="seller-point">
-          <div class="item">
-            <span class="name">最近销量</span>
-            <span class="val">7261</span>
-          </div>
-          <div class="item">
-            <span class="name">粉丝</span>
-            <span class="val">48801</span>
-          </div>
-          <div class="item">
-            <span class="name">综合评分</span>
-            <span class="torst hign">4.8</span>
-            <span class="torst-pop hign">高于平均7.33%</span>
-          </div>
-          <div class="item">
-            <span class="keyval">
-              <i class="key">买家评分</i>
-              <i class="val hign">4.8</i>
-            </span>
-            <span class="keyval">
-              <i class="key">物流服务</i>
-              <i class="val hign">4.9</i>
-            </span>
-            <span class="keyval">
-              <i class="key">客户服务</i>
-              <i class="val hign">4.8</i>
-            </span>
-          </div>
-        </div>
-        <div class="seller-btn">
-          <a
-            module_index
-            module_name="store"
-            sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
-            sellerid="13985654"
-            href="//m.ymatou.com/sellerhome/forBuyerApp/sellerHome?SellerId=13985654"
-          >进店看看</a>
-        </div>
-      </div>
-
-      <div class="zhengpin">
-        <img src="//s1.ymatou.com/itemm/static/img/zhengpin.855bfb9.png" />
-      </div>
-
-      <div class="image-text-wrap">
-        <div class="m-title">
-          <span>
-            <i class="cro-fl"></i>详情
-            <i class="cro-fr"></i>
-          </span>
-        </div>
-        <div class="title">
-          <span class="chinese">图文详情</span>
-        </div>
-        <div class="list">
-          <div class="item">
-            <div class="name">
-              <h2>
-                <span>买家须知</span>
-              </h2>
-              <!---->
-            </div>
-            <div
-              class="text"
-            >各位哈尼，国内部分（偏远）地区是需要补邮费的，以下为补邮费地区（青海,甘肃,宁夏,海南,内蒙古,这5个地区1KG以内 需要补8元邮费）---（新疆1KG以内补15元邮费）（西藏水乳不能发，发其他需要补20邮费）补邮费联系客服，感谢您的理解！！</div>
-            <!---->
-            <div class="pics">
-              <img
-                src="http://pic1.ymatou.com/G02/shangou/M0B/EF/96/CgzUDFy0lbmASZrnAAMchisqZZ0279_375_404_n_w_o.jpg"
-                style="height: 371.68px; opacity: 1;"
-                class="lazyload transition"
-              />
-              <img
-                src="http://pic1.ymatou.com/G02/shangou/M01/06/FC/CgzUC1y0lnCAGEidAAT_gGqD2L4366_375_404_n_w_o.jpg"
-                style="height: 371.68px; opacity: 1;"
-                class="lazyload transition"
-              />
-              <img
-                src="http://pic1.ymatou.com/G02/shangou/M0A/EF/96/CgzUDFy0lcCAcZ3tAAdX7UGXtck827_375_404_n_w_o.jpg"
-                style="height: 371.68px; opacity: 1;"
-                class="lazyload transition"
-              />
-            </div>
-          </div>
-          <div class="item">
-            <div class="name">
-              <h2>
-                <span>商品参数</span>
-              </h2>
-              <!---->
-            </div>
-            <!---->
-            <div class="keylist">
-              <div class="keyitem">
-                <span class="key">适用发质</span>
-                <span class="value">所有发质</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">适用对象</span>
-                <span class="value">通用</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">品牌归属地</span>
-                <span class="value">是</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">是否为特殊用途化妆品</span>
-                <span class="value">否</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">成分</span>
-                <span class="value">其他</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">原产地</span>
-                <span class="value">韩国</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">护发功效</span>
-                <span class="value">改善毛躁,滋润,柔软顺滑,头皮舒缓,滋润营养</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">规格类型</span>
-                <span class="value">正常规格</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">保质期</span>
-                <span class="value">三年</span>
-              </div>
-              <div class="keyitem">
-                <span class="key">容量</span>
-                <span class="value">70ml</span>
-              </div>
-            </div>
-            <!---->
-          </div>
-          <div class="item">
-            <div class="name">
-              <h2>
-                <span>商品介绍</span>
-              </h2>
-              <!---->
-            </div>
-            <div class="text">
-              拒绝开叉 ，拒绝打结 ，拒绝暗淡无光 ，拒绝不美丽 ，
-              我要柔顺，我要闪亮，我要飘逸，我要头发时刻美丽！
-              爱茉莉美妆仙发油，于头发半干时挤三滴（黄豆大小即可）于手心，双手对搓后在头发上继续对搓。然后待头发自然干透。坚持几次，你会发现发质真的改善了
-            </div>
-            <!---->
-            <div class="pics">
-              <img
-                src="http://pic1.ymatou.com/G02/shangou/M06/E6/8B/CgvUBFvPXA-ATxA3AAkCOpSDe9c142_75_101_n_w_o.jpg"
-                style="height: 464.6px; opacity: 1;"
-                class="lazyload transition"
-              />
-            </div>
-          </div>
-          <div class="item">
-            <div class="name">
-              <h2>
-                <span>买手介绍</span>
-              </h2>
-              <!---->
-            </div>
-            <div class="text">请哈尼们熟知</div>
-            <!---->
-            <div class="pics">
-              <img
-                src="http://pic1.ymatou.com/G02/shangou/M0B/EF/97/CgzUDFy0ld2ANQwuAAbgTna4lEc856_250_599_n_w_o.jpg"
-                style="height: 826.62px;"
-              />
-              <img
-                src="http://pic1.ymatou.com/G02/M03/94/FC/CgzUCl0m52aAUwauAAKbJd06F4I341.png"
-                style="height: auto;"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="likeproduct">
-        <productList></productList>
-      </div>
       
-    </div>
+      <div class="details-wrap">
+      
+        <div class="details-swiper">
+          <van-swipe @change="onChange">
+            <van-swipe-item v-for="(img,index) in detailsImg" :key="index">
+              <img :src="img" width="100%" style="height:10rem" />
+            </van-swipe-item>
+
+            <div class="custom-indicator" slot="indicator">{{ current + 1 }}/8</div>
+          </van-swipe>
+        </div>
+
+        <div class="product-info">
+          <div class="productinfo-content">
+            <div class="product-name">
+              <span class="tag">包邮包税</span>
+              <span class="name">韩国爱茉莉护发精油发油女卷发修复护理改善防毛躁烫后护卷柔顺</span>
+            </div>
+            <div class="product-price">
+              <span class="interval-price">
+                <i>¥&nbsp;</i>39~72
+              </span>
+            </div>
+            <div class="product-activity">
+              <span class="name">活动价￥38.8起，黑五狂欢价</span>
+              <span class="day">11月22日00:00准时开始</span>
+            </div>
+          </div>
+          <div class="seller-coupon">
+            <div class="coupon-btn" @click="onclickDown('coupon')">
+              <div class="tag"></div>
+              <div class="list">
+                <span class="item">
+                  <i class="tag-before"></i>满1999减60
+                  <i class="tag-after"></i>
+                </span>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+
+        <div class="logistics-freight-server">
+          <div class="logistics-wrap" @click="onclickDown('logistics-pop')">
+            <div class="logistics-info">
+              <span class="tag">物流</span>
+              <span class="value">
+                拼邮
+                <i data-v-5152bdb0>，韩国发货</i>
+              </span>
+            </div>
+            <div class="logistic-time"></div>
+          </div>
+          <div class="logistics-wrap">
+            <span class="tag">运费</span>
+            <span class="value">包邮</span>
+          </div>
+          <div class="server-wrap">
+            <span class="tag-server">假一赔三</span>
+            <span class="tag-server">售后无忧</span>
+          </div>
+        </div>
+
+        <div class="sku-wrap">
+          <div class="sku-btn" @click="onclickDown('specs')">
+            <span class="tag">选择</span>
+            <span class="value">规格分类</span>
+          </div>
+          <!---->
+        </div>
+
+        <div class="buyer-rate">
+          <div class="m-title">
+            <span>
+              <i class="cro-fl"></i>评价
+              <i class="cro-fr"></i>
+            </span>
+          </div>
+          <div class="b-title">
+            <span class="name">买家评价</span>
+            <span class="rate">
+              <i class="full"></i>
+              <i class="full"></i>
+              <i class="full"></i>
+              <i class="full"></i>
+              <i class="full"></i>
+            </span>
+            <span class="num">4.7</span>
+            <span
+              module_index
+              module_name="pingjia"
+              sproductid="04f8bcd8-a103-40e0-8fa7-1e11bb19308f"
+              sellerid="20927755"
+              class="more"
+            >查看全部455条</span>
+          </div>
+          <div class="tag-content">
+            <div class="tag-name">购买过该商品的用户认为</div>
+            <!---->
+          </div>
+          <div class="note-list">
+            <div class="note-item">
+              <div class="content">
+                <div class="info">
+                  <div class="buyer">
+                    <div class="avg">
+                      <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
+                    </div>
+                    <div class="name">我**哒</div>
+                    <div class="grade lever2">123</div>
+                  </div>
+                  <div
+                    class="desc"
+                  >用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
+                </div>
+                <div class="pic lazyload transition">
+                  <!---->
+                </div>
+              </div>
+            </div>
+            <div class="note-item">
+              <div class="content">
+                <div class="info">
+                  <div class="buyer">
+                    <div class="avg">
+                      <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
+                    </div>
+                    <div class="name">我**哒</div>
+                    <div class="grade lever2">123</div>
+                  </div>
+                  <div
+                    class="desc"
+                  >用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
+                </div>
+                <div class="pic lazyload transition">
+                  <!---->
+                </div>
+              </div>
+            </div>
+
+            <div class="note-more">
+              <span>
+                查看全部
+                <br />MORE
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="seller-wrap">
+          <div class="seller-info">
+            <div
+              class="pic lazyload transition"
+              style="opacity: 1; background-image: url(&quot;http://pic1.ymatou.com/G02/M02/B5/A6/CgvUA1cJy6-AQ2x0AACCgx58y1A969_m.jpg&quot;);"
+            ></div>
+            <div class="info">
+              <div class="name">重返18岁</div>
+              <div class="type-coutry">
+                <span class="selle-type">
+                  <!---->
+                  <i>专业买手</i>
+                  <!---->
+                  <!---->
+                  <i class="num hign">4.8</i>
+                </span>
+                <span class="contry">
+                  <img src="http://img.ymatou.com/app/flag/circle/Thailand.png" />泰国
+                </span>
+              </div>
+            </div>
+            <!---->
+            <div
+              module_index
+              module_name="follow_seller"
+              sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
+              sellerid="13985654"
+              class="btn-follow"
+            >
+              <i class="tag follow"></i>未关注
+            </div>
+          </div>
+          <div class="seller-point">
+            <div class="item">
+              <span class="name">最近销量</span>
+              <span class="val">7261</span>
+            </div>
+            <div class="item">
+              <span class="name">粉丝</span>
+              <span class="val">48801</span>
+            </div>
+            <div class="item">
+              <span class="name">综合评分</span>
+              <span class="torst hign">4.8</span>
+              <span class="torst-pop hign">高于平均7.33%</span>
+            </div>
+            <div class="item">
+              <span class="keyval">
+                <i class="key">买家评分</i>
+                <i class="val hign">4.8</i>
+              </span>
+              <span class="keyval">
+                <i class="key">物流服务</i>
+                <i class="val hign">4.9</i>
+              </span>
+              <span class="keyval">
+                <i class="key">客户服务</i>
+                <i class="val hign">4.8</i>
+              </span>
+            </div>
+          </div>
+          <div class="seller-btn">
+            <a
+              module_index
+              module_name="store"
+              sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
+              sellerid="13985654"
+              href="//m.ymatou.com/sellerhome/forBuyerApp/sellerHome?SellerId=13985654"
+            >进店看看</a>
+          </div>
+        </div>
+
+        <div class="zhengpin">
+          <img src="//s1.ymatou.com/itemm/static/img/zhengpin.855bfb9.png" />
+        </div>
+
+        <div class="image-text-wrap">
+          <div class="m-title">
+            <span>
+              <i class="cro-fl"></i>详情
+              <i class="cro-fr"></i>
+            </span>
+          </div>
+          <div class="title">
+            <span class="chinese">图文详情</span>
+          </div>
+          <div class="list">
+            <div class="item">
+              <div class="name">
+                <h2>
+                  <span>买家须知</span>
+                </h2>
+                <!---->
+              </div>
+              <div
+                class="text"
+              >各位哈尼，国内部分（偏远）地区是需要补邮费的，以下为补邮费地区（青海,甘肃,宁夏,海南,内蒙古,这5个地区1KG以内 需要补8元邮费）---（新疆1KG以内补15元邮费）（西藏水乳不能发，发其他需要补20邮费）补邮费联系客服，感谢您的理解！！</div>
+              <!---->
+              <div class="pics">
+                <img
+                  src="http://pic1.ymatou.com/G02/shangou/M0B/EF/96/CgzUDFy0lbmASZrnAAMchisqZZ0279_375_404_n_w_o.jpg"
+                  style="height: 371.68px; opacity: 1;"
+                  class="lazyload transition"
+                />
+                <img
+                  src="http://pic1.ymatou.com/G02/shangou/M01/06/FC/CgzUC1y0lnCAGEidAAT_gGqD2L4366_375_404_n_w_o.jpg"
+                  style="height: 371.68px; opacity: 1;"
+                  class="lazyload transition"
+                />
+                <img
+                  src="http://pic1.ymatou.com/G02/shangou/M0A/EF/96/CgzUDFy0lcCAcZ3tAAdX7UGXtck827_375_404_n_w_o.jpg"
+                  style="height: 371.68px; opacity: 1;"
+                  class="lazyload transition"
+                />
+              </div>
+            </div>
+            <div class="item">
+              <div class="name">
+                <h2>
+                  <span>商品参数</span>
+                </h2>
+                <!---->
+              </div>
+              <!---->
+              <div class="keylist">
+                <div class="keyitem">
+                  <span class="key">适用发质</span>
+                  <span class="value">所有发质</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">适用对象</span>
+                  <span class="value">通用</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">品牌归属地</span>
+                  <span class="value">是</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">是否为特殊用途化妆品</span>
+                  <span class="value">否</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">成分</span>
+                  <span class="value">其他</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">原产地</span>
+                  <span class="value">韩国</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">护发功效</span>
+                  <span class="value">改善毛躁,滋润,柔软顺滑,头皮舒缓,滋润营养</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">规格类型</span>
+                  <span class="value">正常规格</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">保质期</span>
+                  <span class="value">三年</span>
+                </div>
+                <div class="keyitem">
+                  <span class="key">容量</span>
+                  <span class="value">70ml</span>
+                </div>
+              </div>
+              <!---->
+            </div>
+            <div class="item">
+              <div class="name">
+                <h2>
+                  <span>商品介绍</span>
+                </h2>
+                <!---->
+              </div>
+              <div class="text">
+                拒绝开叉 ，拒绝打结 ，拒绝暗淡无光 ，拒绝不美丽 ，
+                我要柔顺，我要闪亮，我要飘逸，我要头发时刻美丽！
+                爱茉莉美妆仙发油，于头发半干时挤三滴（黄豆大小即可）于手心，双手对搓后在头发上继续对搓。然后待头发自然干透。坚持几次，你会发现发质真的改善了
+              </div>
+              <!---->
+              <div class="pics">
+                <img
+                  src="http://pic1.ymatou.com/G02/shangou/M06/E6/8B/CgvUBFvPXA-ATxA3AAkCOpSDe9c142_75_101_n_w_o.jpg"
+                  style="height: 464.6px; opacity: 1;"
+                  class="lazyload transition"
+                />
+              </div>
+            </div>
+            <div class="item">
+              <div class="name">
+                <h2>
+                  <span>买手介绍</span>
+                </h2>
+                <!---->
+              </div>
+              <div class="text">请哈尼们熟知</div>
+              <!---->
+              <div class="pics">
+                <img
+                  src="http://pic1.ymatou.com/G02/shangou/M0B/EF/97/CgzUDFy0ld2ANQwuAAbgTna4lEc856_250_599_n_w_o.jpg"
+                  style="height: 826.62px;"
+                />
+                <img
+                  src="http://pic1.ymatou.com/G02/M03/94/FC/CgzUCl0m52aAUwauAAKbJd06F4I341.png"
+                  style="height: auto;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="likeproduct">
+          <productList></productList>
+        </div>
+      </div>
     </div>
     <div class="detailsFooter">
       <div class="left">
@@ -467,8 +381,97 @@
         <span class="addCart">加入购物车</span>
         <span class="buy">立即购买</span>
       </div>
-  </div>
-   
+    </div>
+     <van-action-sheet
+              v-model="show"
+              :cancel-text="downType=='specs'?'':'取消'"
+              @cancel="onCancel"
+            >
+              <div class="coupon-pop iphonex show" v-if="downType=='coupon'">
+                <div class="title">买手优惠券</div>
+                <div class="list">
+                  <div class="item">
+                    <div class="cart">
+                      <div class="price">
+                        ¥
+                        <i>60</i>
+                      </div>
+                      <div class="rule">满1999元可用</div>
+                    </div>
+                    <div class="info">
+                      <div class="name">
+                        <span>买手券</span>限买手(首尔姐妹花)商品
+                      </div>
+                      <div class="time">2019.11.22-2019.11.25</div>
+                      <div
+                        module_index
+                        module_name="coupon"
+                        sproductid="66419dbb-8f6c-4c36-925d-5aba6c6ba017"
+                        sellerid="20927755"
+                        class="btn"
+                      >点击领取</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="logistics-pop iphonex show" v-if="downType=='logistics-pop'">
+                <div class="item">
+                  <div class="name">虚拟发货</div>
+                  <div class="desc">支付成功且买手接单后，将自动闪电发货</div>
+                </div>
+                <div class="pic">
+                  <img src="//s1.ymatou.com/itemm/static/img/log-pinyou.e8056fe.png" />
+                </div>
+              </div>
+              <div class="sku-pop" v-if="downType=='specs'">
+                <div class="sku-content">
+                  <div class="sku-info">
+                    <div
+                      class="pic"
+                      style="background-image: url(&quot;http://pic1.ymatou.com/G02/shangou/M06/E3/0C/CgvUBFn3-pCAMPZoAAP9GA9bkWQ240_1_1_n_w_lb.jpg&quot;);"
+                    ></div>
+                    <div class="desc">
+                      <span class="price">
+                        <i>¥&nbsp;</i>39~72
+                      </span>
+                      <span class="stock"></span>
+                      <span class="choosed">请选择: 规格分类</span>
+                    </div>
+                  </div>
+                  <div class="spec-wrap">
+                    <div class="spec">
+                      <div class="title">规格分类</div>
+                      <div class="options">
+                        <span class="sku active">黄色-2瓶</span>
+                        <span class="sku">黄色-经典款-70ml</span>
+                        {
+                        "value": ""
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div class="purchase-amount">
+                    <div class="text">
+                      <span class="title">
+                        购买数量
+                        <br />
+                      </span>
+                    </div>
+                    <div class="amount">
+                      <input type="button" value="-" onclick class="btn-minus" />
+                      <span class="num">1</span>
+                      <input type="button" value="+" onclick class="btn-plus" />
+                    </div>
+                  </div>
+                </div>
+                <div class="preorder-pop-layer preorder-pop-layer-active"></div>
+                <div class="spec-confirm">
+                  <span class="half">加入购物车</span>
+                  <span class="half">立即购买</span>
+                </div>
+              </div>
+            </van-action-sheet>
+  
   </div>
 </template>
 
@@ -488,15 +491,19 @@ export default Vue.extend({
       path: "details",
       current: 0,
       detailsImg: [],
-      show: true,
+      show: false,
       downType: ""
     };
   },
+
   methods: {
     onclickDown(type) {
       this.downType = type;
       this.show = true;
-      console.log(1)
+      console.log(1);
+    },
+    aaaa(){
+      this.show=true
     },
     onChange(index) {
       this.current = index;
@@ -531,81 +538,78 @@ export default Vue.extend({
 </script>
 
 <style  lang="stylus" >
-
-
 .detail_main
   display flex
   height 100%
   flex-direction column
   .bscroll
-    overflow: hidden;
+    overflow hidden
     flex 1
   .details-wrap
     .product-list
       .likeproduct
-        width: 100%;
-        overflow: hidden;
-        padding: 0 .425rem;
+        width 100%
+        overflow hidden
+        padding 0 0.425rem
       .product-wrapper
-        margin-bottom: .5rem;
-        width: 50%;
-      .product-wrapper:nth-child(odd) 
-        padding-right: .3125rem;
-      .product-wrapper:nth-child(2n) 
-        padding-left: .3125rem;
-      .product  
+        margin-bottom 0.5rem
+        width 50%
+      .product-wrapper:nth-child(odd)
+        padding-right 0.3125rem
+      .product-wrapper:nth-child(2n)
+        padding-left 0.3125rem
+      .product
         height 17.5rem
-        .picture 
-          height: 10.8125rem;
-          position: relative;
-        .info 
-            padding: 0 .375rem;
-            position: relative;
-            .country 
-              font-size: 10px;
-              color: #646464;
-              text-align: right;
-              display: inline-block;
-              position: absolute;
-              right: .9375rem;
-              bottom: 0;
-              .flag 
-                width: .625rem;
-                height: .625rem;
-                border-radius: 50%;
-                margin-right: .25rem;
-                vertical-align: middle;
-            .price 
-              font-size: 32px;
-              line-height: 1;
-              font-size: 16px;
-              color: #c33;
-            .name
-              height: 2.125rem;
-              font-size: 12px;
-              color: #383838;
-              line-height: 1.0625rem;
-              text-overflow: ellipsis;
-              -webkit-line-clamp: 2;
-              overflow: hidden;
-              white-space: normal;
-              margin: .625rem 0 0;
-            .info-tag
-              width: 100%;
-              overflow: hidden;
-              margin: .4375rem 0 .625rem;
-              font-size: 0;
-              span 
-                display: inline-block;
-                margin-right: .25rem;
-                font-size: 9px;
-                border: 1px solid #c33;
-                color: #c33;
-                padding: .0625rem .1875rem;
-                margin: 1px;
-                line-height: .75rem;
-                border-radius: .1875rem;
-    
+        .picture
+          height 10.8125rem
+          position relative
+        .info
+          padding 0 0.375rem
+          position relative
+          .country
+            font-size 10px
+            color #646464
+            text-align right
+            display inline-block
+            position absolute
+            right 0.9375rem
+            bottom 0
+            .flag
+              width 0.625rem
+              height 0.625rem
+              border-radius 50%
+              margin-right 0.25rem
+              vertical-align middle
+          .price
+            font-size 32px
+            line-height 1
+            font-size 16px
+            color #c33
+          .name
+            height 2.125rem
+            font-size 12px
+            color #383838
+            line-height 1.0625rem
+            text-overflow ellipsis
+            -webkit-line-clamp 2
+            overflow hidden
+            white-space normal
+            margin 0.625rem 0 0
+          .info-tag
+            width 100%
+            overflow hidden
+            margin 0.4375rem 0 0.625rem
+            font-size 0
+            span
+              display inline-block
+              margin-right 0.25rem
+              font-size 9px
+              border 1px solid #c33
+              color #c33
+              padding 0.0625rem 0.1875rem
+              margin 1px
+              line-height 0.75rem
+              border-radius 0.1875rem
   .van-popup--round
     border-radius 0
   .details-swiper
@@ -794,81 +798,7 @@ export default Vue.extend({
         margin-top 0.0625rem
         background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAeCAYAAABqpJ3BAAAABGdBTUEAALGPC/xhBQAABK5JREFUWAnVWEtoFEkY/qqn55XJOxgfiMaTMYmR6GUPCoqgXkTBmBhdRQRhT148eFLHx9WDoLA3Rcxu1BAQ8SAIccEXiWjYCCYXDS4SzZoMyWQmPel0t//fZibTPT1jJbJs8kNPVf2v/qvqf/WIsba2Rt0wfocQTcKyVCwBsACD7H1Dpv6m6qbZTpMGWBaIsFRAJXt/IWP/UOjU65eK1R521ikeyByUCAbBjwyIsjL4li93sPpraxHetcuBU5Ytg3/DBgduIQupDYT37kV4zx4p/cVHjqDs9GmQj2b42fjQzp2ZNU9Kjh9HpLnZgVvIQmoDyc5OJO/fl9KfuHMHvpUrEdq2LcPPN6C/eze33rgRgc2bEb95M4Nb6EQq64hIBHaQJ5N53yPCYYiiIps+9eQJfCtWQKmqglJZCR+NxvCwvWYGf00NUs+ewSJ9zMOjNTWVV3chghhpaTEp+8zdtwd3pKUF1swMkl1dHtTvKHaHyMGDeemFCIl795CgW14ISN2AjOLko0fQnj93sHLgl587h1RPT0EXNONxh9x8FlIbmCLjLKoThcAiIwyXIUX79kEEAkjcvQtzdLSQ+IJoQogJqQ2Y4+MFXxDavh2BhoYcnsCWLbASCRS3teXQ3Ijpt2+hUez8CMjX45YQf9LYr6rqX1Ib4JPkGJh6+NBbv6o66wS5TnDTJhgjI5gZGnLS/H4Em5qgv38P8+vXOX2kQwJ66Eb3V9++PZzmlZKyi5jPl5bJGbXHj8EPgygtRfmZMzC+fEHs/HmYsVgOPycFrgsT167B+PQph+6JEEJThWiuyjKe+aTqQKq3F9OvX3vqzUZy/q+4dAlKeTliFy96Gs/8HBPTfX2oiEbhX78+W0XeOblMb1VHxz9uBqkbmPnwwS3nWHOdiBw4gPDu3TDHxmCQaxQfOuTgyVnQjRrEW37hAlJPn2KyvT3vhmdlPQ9bqg4Et24FTBMpV5pkxSIUQtXVqwD5PZ9s6sULlJw4Yb9Tqa6GumYNpl+9mrVhdiB/D1Iljl2+bMuXnjxpZ7nRU6eAVMrJO7dKBRSltqKjY2gOBUjdgLpqlR3E2YLpuaVpiN+4AX1wMHOC41eu2GSuATpll/Q6LcPNHm+AZfX+fowODEBdvbqQ8Swa1C2ra+zYsf2Vt259TOuS2oDOLkRZKB+kXr7MIQUaGxGor7cD1U3kQGfg2pEes3slG+nxQ7WoSde0gX9bWztNIf5WFKVbagPTFMTzAnKnyOHD0CmFauTfbvBRK83glaHcvB7rsGlZR+3ezDTjnoHhFvLX1YE7ShngTFRJvu2jJm7i+nW7CXTL8e1wmrXy+7tbxHNNvUGJ1A1wleVCppOv5gNRUoLi1laEduyA8fkzYmfP2kYyv/0xQwWME4G6di3CxJN48CCfqnnhpTbArQRvoCAQXV23zk6H3DvBMDLsak0N/BQPDNbkpB30Wnd3hv4zE6k0+jMv+K9lpWKA0x7n9MUIUi7kp09ATqMaNWeLDaQ2kG7UFpvxbI9C/x7kTy2L0eIsm6jBG1SEz3eUvmze0GNm0Rb1lG0l4/uEovxK43ewolEOaKmgTsv8j6MpotElc+AFz+kbXC6m5gfj318AAAAASUVORK5CYII=')
         background-size cover
-      .coupon-pop
-        border-top 2px solid #000
-        background-color #fff
-        .title
-          width 100%
-          line-height 1.125rem
-          font-size 0.875rem
-          color #292929
-          padding 0.75rem
-        .list
-          width 100%
-          overflow hidden
-          padding 0 0.75rem
-          max-height 18.75rem
-          overflow-y auto
-          .item
-            width 100%
-            overflow hidden
-            height 5.625rem
-            display flex
-            margin-bottom 0.75rem
-            font-family PingFangSC-Regular
-            background #fff
-            position relative
-            .cart
-              width 6.5625rem
-              overflow hidden
-              height 100%
-              background-color #ffa968
-              text-align center
-              color #fff
-              .price
-                margin-top 0.9375rem
-                font-size 1.0625rem
-                i
-                  font-size 1.875rem
-              .rule
-                font-size 0.75rem
-          .info
-            flex 1
-            -webkit-flex 1
-            height 100%
-            padding-left 0.9375rem
-            position relative
-            .name
-              width 100%
-              font-size 0.75rem
-              text-overflow ellipsis
-              -webkit-line-clamp 2
-              overflow hidden
-              white-space normal
-              line-height 1.125rem
-              margin-top 0.625rem
-              margin-bottom 1.25rem
-              span
-                background-color #ffa968
-                border-radius 0.1875rem
-                color #fff
-                padding 0 0.1875rem
-                margin-right 0.3125rem
-                font-size 0.625rem
-            .time
-              font-size 0.75rem
-              color #666
-              display inline-block
-            .btn
-              position absolute
-              right 0.625rem
-              bottom 0.9375rem
-              border 1px solid #e95656
-              padding 0.125rem 0.625rem
-              border-radius 0.625rem
-              font-size 0.75rem
-              color #e95656
-              background #fff
+      
   .logistics-freight-server
     width 100%
     overflow hidden
@@ -1177,6 +1107,81 @@ export default Vue.extend({
           background-color #c33
       .half
         width 50%
+  .coupon-pop
+        border-top 2px solid #000
+        background-color #fff
+        .title
+          width 100%
+          line-height 1.125rem
+          font-size 0.875rem
+          color #292929
+          padding 0.75rem
+        .list
+          width 100%
+          overflow hidden
+          padding 0 0.75rem
+          max-height 18.75rem
+          overflow-y auto
+          .item
+            width 100%
+            overflow hidden
+            height 5.625rem
+            display flex
+            margin-bottom 0.75rem
+            font-family PingFangSC-Regular
+            background #fff
+            position relative
+            .cart
+              width 6.5625rem
+              overflow hidden
+              height 100%
+              background-color #ffa968
+              text-align center
+              color #fff
+              .price
+                margin-top 0.9375rem
+                font-size 1.0625rem
+                i
+                  font-size 1.875rem
+              .rule
+                font-size 0.75rem
+          .info
+            flex 1
+            -webkit-flex 1
+            height 100%
+            padding-left 0.9375rem
+            position relative
+            .name
+              width 100%
+              font-size 0.75rem
+              text-overflow ellipsis
+              -webkit-line-clamp 2
+              overflow hidden
+              white-space normal
+              line-height 1.125rem
+              margin-top 0.625rem
+              margin-bottom 1.25rem
+              span
+                background-color #ffa968
+                border-radius 0.1875rem
+                color #fff
+                padding 0 0.1875rem
+                margin-right 0.3125rem
+                font-size 0.625rem
+            .time
+              font-size 0.75rem
+              color #666
+              display inline-block
+            .btn
+              position absolute
+              right 0.625rem
+              bottom 0.9375rem
+              border 1px solid #e95656
+              padding 0.125rem 0.625rem
+              border-radius 0.625rem
+              font-size 0.75rem
+              color #e95656
+              background #fff
   .buyer-rate
     width 100%
     // overflow: hidden;
