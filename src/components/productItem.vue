@@ -1,5 +1,5 @@
 <template>
-  <li class="product-wrapper" @click="handleClickDetail">
+  <li class="product-wrapper" @click="handleClickDetail" >
     <a class="product needsclick">
       <div class="picture lazyload" :style="{'backgroundImage': 'url('+item.pic+')'}"></div>
       <div class="info">
@@ -19,12 +19,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-
+import {CHANGEINVENTORY,SETINVENTORY} from '../store/action-types'
 export default Vue.extend({
     props: ["item"],
     methods: {
       handleClickDetail() {
-        this.$router.push("/details");
+        this.$router.push(`/details/${this.item.id}`)
+        // console.log(this.$store)
+        this.$store.commit(SETINVENTORY,this.item)
+        
       }
     }
 });

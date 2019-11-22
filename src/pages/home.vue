@@ -211,6 +211,8 @@ export default Vue.extend({
   width 100%
   overflow hidden
   background #f5f5f5
+  span:after 
+    background-image: url('https://s1.ymatou.com/homem/images/tag_select-cb4a47d788.png');
   .content
     border 0.2133333333rem solid #fff
     background #fff
@@ -253,6 +255,7 @@ export default Vue.extend({
   
   width 100%
   text-align center
+
 .btn-like-more-over
   margin 0.2666666667rem 0
   line-height 0.8rem
@@ -276,4 +279,6 @@ export default Vue.extend({
   padding 0 0.2266666667rem 0.2666666667rem
   background #f5f5f5
   overflow hidden
+  span:after
+    background-image: url('https://s1.ymatou.com/homem/images/tag_heart-dc2c84d296.png');
 </style>

@@ -11,6 +11,7 @@ module.exports = {
           '/ajax': {
             target: 'https://m.ymatou.com/',
             changeOrigin: true,
+            secure:false,
             pathRewrite:{'^/ajax':''}
           }
         }

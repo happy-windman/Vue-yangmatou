@@ -2,16 +2,14 @@
   <div class="detail_main">
     <myHeader :path="path"></myHeader>
     <div class="bscroll">
-      
       <div class="details-wrap">
-      
         <div class="details-swiper">
           <van-swipe @change="onChange">
             <van-swipe-item v-for="(img,index) in detailsImg" :key="index">
-              <img :src="img" width="100%" style="height:10rem" />
+              <img :src="img" width="100%" />
             </van-swipe-item>
 
-            <div class="custom-indicator" slot="indicator">{{ current + 1 }}/8</div>
+            <div class="custom-indicator" slot="indicator">{{ current + 1 }}/{{picLength}}</div>
           </van-swipe>
         </div>
 
@@ -19,11 +17,11 @@
           <div class="productinfo-content">
             <div class="product-name">
               <span class="tag">包邮包税</span>
-              <span class="name">韩国爱茉莉护发精油发油女卷发修复护理改善防毛躁烫后护卷柔顺</span>
+              <span class="name">{{products.name}}</span>
             </div>
             <div class="product-price">
               <span class="interval-price">
-                <i>¥&nbsp;</i>39~72
+                <i>¥&nbsp;</i>{{products.price}}
               </span>
             </div>
             <div class="product-activity">
@@ -41,7 +39,6 @@
                 </span>
               </div>
             </div>
-           
           </div>
         </div>
 
@@ -90,56 +87,30 @@
               <i class="full"></i>
               <i class="full"></i>
             </span>
-            <span class="num">4.7</span>
-            <span
-              module_index
-              module_name="pingjia"
-              sproductid="04f8bcd8-a103-40e0-8fa7-1e11bb19308f"
-              sellerid="20927755"
-              class="more"
-            >查看全部455条</span>
+            <span class="num">{{notes.evaluation}}</span>
+            <span class="more">查看全部455条</span>
           </div>
           <div class="tag-content">
             <div class="tag-name">购买过该商品的用户认为</div>
             <!---->
           </div>
           <div class="note-list">
-            <div class="note-item">
+            <div class="note-item" v-for="(note,i) in notes.list" :key="i">
               <div class="content">
                 <div class="info">
                   <div class="buyer">
                     <div class="avg">
-                      <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
+                      <img :src="note.posterAvatar" />
                     </div>
-                    <div class="name">我**哒</div>
-                    <div class="grade lever2">123</div>
+                    <div class="name">{{note.posterName}}</div>
+                    <div :class="'grade lever'+note.posterLevel">123</div>
                   </div>
-                  <div
-                    class="desc"
-                  >用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
+                  <div class="desc">{{note.content}}</div>
                 </div>
-                <div class="pic lazyload transition">
-                  <!---->
-                </div>
-              </div>
-            </div>
-            <div class="note-item">
-              <div class="content">
-                <div class="info">
-                  <div class="buyer">
-                    <div class="avg">
-                      <img src="http://staticontent.ymatou.com/app/userlogo/mj.jpg" />
-                    </div>
-                    <div class="name">我**哒</div>
-                    <div class="grade lever2">123</div>
-                  </div>
-                  <div
-                    class="desc"
-                  >用了几天才来评价，很不错，用了之后头发很光滑，质感值得购买，很好用，能能舒缓头发干枯毛躁。之后头发很滋润，有一股淡淡的香味挺好闻的。</div>
-                </div>
-                <div class="pic lazyload transition">
-                  <!---->
-                </div>
+                <div
+                  class="pic lazyload transition"
+                  :style="{'backgroundImage':'url('+(note.picList.length!=0?note.picList[0]:'https://s1.ymatou.com/itemm/static/img/placeholder.bb77734.png')+')'}"
+                ></div>
               </div>
             </div>
 
@@ -156,10 +127,10 @@
           <div class="seller-info">
             <div
               class="pic lazyload transition"
-              style="opacity: 1; background-image: url(&quot;http://pic1.ymatou.com/G02/M02/B5/A6/CgvUA1cJy6-AQ2x0AACCgx58y1A969_m.jpg&quot;);"
+              :style="{'opacity': 1, 'backgroundImage': 'url('+ products.sellerInfo.avatarUrl+')'}"
             ></div>
             <div class="info">
-              <div class="name">重返18岁</div>
+              <div class="name">{{products.sellerInfo.name}}</div>
               <div class="type-coutry">
                 <span class="selle-type">
                   <!---->
@@ -169,18 +140,12 @@
                   <i class="num hign">4.8</i>
                 </span>
                 <span class="contry">
-                  <img src="http://img.ymatou.com/app/flag/circle/Thailand.png" />泰国
+                  <img :src="products.sellerInfo.countryIconUrl" />{{products.sellerInfo.countryName}}
                 </span>
               </div>
             </div>
             <!---->
-            <div
-              module_index
-              module_name="follow_seller"
-              sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
-              sellerid="13985654"
-              class="btn-follow"
-            >
+            <div class="btn-follow">
               <i class="tag follow"></i>未关注
             </div>
           </div>
@@ -214,13 +179,7 @@
             </div>
           </div>
           <div class="seller-btn">
-            <a
-              module_index
-              module_name="store"
-              sproductid="d6ca584c-c788-4999-85e3-46d5ef3f431d"
-              sellerid="13985654"
-              href="//m.ymatou.com/sellerhome/forBuyerApp/sellerHome?SellerId=13985654"
-            >进店看看</a>
+            <a href="//m.ymatou.com/sellerhome/forBuyerApp/sellerHome?SellerId=13985654">进店看看</a>
           </div>
         </div>
 
@@ -239,126 +198,28 @@
             <span class="chinese">图文详情</span>
           </div>
           <div class="list">
-            <div class="item">
+            <div class="item" v-for="(item,index) in data" :key="index">
               <div class="name">
                 <h2>
-                  <span>买家须知</span>
+                  <span>{{item.title}}</span>
                 </h2>
-                <!---->
               </div>
-              <div
-                class="text"
-              >各位哈尼，国内部分（偏远）地区是需要补邮费的，以下为补邮费地区（青海,甘肃,宁夏,海南,内蒙古,这5个地区1KG以内 需要补8元邮费）---（新疆1KG以内补15元邮费）（西藏水乳不能发，发其他需要补20邮费）补邮费联系客服，感谢您的理解！！</div>
-              <!---->
-              <div class="pics">
+              <div class="text">{{item.text}}</div>
+
+              <div class="pics" v-if="item.moduleType==1">
                 <img
-                  src="http://pic1.ymatou.com/G02/shangou/M0B/EF/96/CgzUDFy0lbmASZrnAAMchisqZZ0279_375_404_n_w_o.jpg"
-                  style="height: 371.68px; opacity: 1;"
-                  class="lazyload transition"
-                />
-                <img
-                  src="http://pic1.ymatou.com/G02/shangou/M01/06/FC/CgzUC1y0lnCAGEidAAT_gGqD2L4366_375_404_n_w_o.jpg"
-                  style="height: 371.68px; opacity: 1;"
-                  class="lazyload transition"
-                />
-                <img
-                  src="http://pic1.ymatou.com/G02/shangou/M0A/EF/96/CgzUDFy0lcCAcZ3tAAdX7UGXtck827_375_404_n_w_o.jpg"
+                  v-for="(img,i) in item.picList"
+                  :key="i"
+                  :src="img"
                   style="height: 371.68px; opacity: 1;"
                   class="lazyload transition"
                 />
               </div>
-            </div>
-            <div class="item">
-              <div class="name">
-                <h2>
-                  <span>商品参数</span>
-                </h2>
-                <!---->
-              </div>
-              <!---->
-              <div class="keylist">
-                <div class="keyitem">
-                  <span class="key">适用发质</span>
-                  <span class="value">所有发质</span>
+              <div class="keylist" v-if="item.moduleType==3">
+                <div class="keyitem" v-for="(value,i) in item.propertyList" :key="i">
+                  <span class="key">{{value.key}}</span>
+                  <span class="value">{{value.value}}</span>
                 </div>
-                <div class="keyitem">
-                  <span class="key">适用对象</span>
-                  <span class="value">通用</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">品牌归属地</span>
-                  <span class="value">是</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">是否为特殊用途化妆品</span>
-                  <span class="value">否</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">成分</span>
-                  <span class="value">其他</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">原产地</span>
-                  <span class="value">韩国</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">护发功效</span>
-                  <span class="value">改善毛躁,滋润,柔软顺滑,头皮舒缓,滋润营养</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">规格类型</span>
-                  <span class="value">正常规格</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">保质期</span>
-                  <span class="value">三年</span>
-                </div>
-                <div class="keyitem">
-                  <span class="key">容量</span>
-                  <span class="value">70ml</span>
-                </div>
-              </div>
-              <!---->
-            </div>
-            <div class="item">
-              <div class="name">
-                <h2>
-                  <span>商品介绍</span>
-                </h2>
-                <!---->
-              </div>
-              <div class="text">
-                拒绝开叉 ，拒绝打结 ，拒绝暗淡无光 ，拒绝不美丽 ，
-                我要柔顺，我要闪亮，我要飘逸，我要头发时刻美丽！
-                爱茉莉美妆仙发油，于头发半干时挤三滴（黄豆大小即可）于手心，双手对搓后在头发上继续对搓。然后待头发自然干透。坚持几次，你会发现发质真的改善了
-              </div>
-              <!---->
-              <div class="pics">
-                <img
-                  src="http://pic1.ymatou.com/G02/shangou/M06/E6/8B/CgvUBFvPXA-ATxA3AAkCOpSDe9c142_75_101_n_w_o.jpg"
-                  style="height: 464.6px; opacity: 1;"
-                  class="lazyload transition"
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="name">
-                <h2>
-                  <span>买手介绍</span>
-                </h2>
-                <!---->
-              </div>
-              <div class="text">请哈尼们熟知</div>
-              <!---->
-              <div class="pics">
-                <img
-                  src="http://pic1.ymatou.com/G02/shangou/M0B/EF/97/CgzUDFy0ld2ANQwuAAbgTna4lEc856_250_599_n_w_o.jpg"
-                  style="height: 826.62px;"
-                />
-                <img
-                  src="http://pic1.ymatou.com/G02/M03/94/FC/CgzUCl0m52aAUwauAAKbJd06F4I341.png"
-                  style="height: auto;"
-                />
               </div>
             </div>
           </div>
@@ -382,96 +243,91 @@
         <span class="buy">立即购买</span>
       </div>
     </div>
-     <van-action-sheet
-              v-model="show"
-              :cancel-text="downType=='specs'?'':'取消'"
-              @cancel="onCancel"
-            >
-              <div class="coupon-pop iphonex show" v-if="downType=='coupon'">
-                <div class="title">买手优惠券</div>
-                <div class="list">
-                  <div class="item">
-                    <div class="cart">
-                      <div class="price">
-                        ¥
-                        <i>60</i>
-                      </div>
-                      <div class="rule">满1999元可用</div>
-                    </div>
-                    <div class="info">
-                      <div class="name">
-                        <span>买手券</span>限买手(首尔姐妹花)商品
-                      </div>
-                      <div class="time">2019.11.22-2019.11.25</div>
-                      <div
-                        module_index
-                        module_name="coupon"
-                        sproductid="66419dbb-8f6c-4c36-925d-5aba6c6ba017"
-                        sellerid="20927755"
-                        class="btn"
-                      >点击领取</div>
-                    </div>
-                  </div>
-                </div>
+    <van-action-sheet v-model="show" :cancel-text="downType=='specs'?'':'取消'" @cancel="onCancel">
+      <div class="coupon-pop iphonex show" v-if="downType=='coupon'">
+        <div class="title">买手优惠券</div>
+        <div class="list">
+          <div class="item">
+            <div class="cart">
+              <div class="price">
+                ¥
+                <i>60</i>
               </div>
-              <div class="logistics-pop iphonex show" v-if="downType=='logistics-pop'">
-                <div class="item">
-                  <div class="name">虚拟发货</div>
-                  <div class="desc">支付成功且买手接单后，将自动闪电发货</div>
-                </div>
-                <div class="pic">
-                  <img src="//s1.ymatou.com/itemm/static/img/log-pinyou.e8056fe.png" />
-                </div>
+              <div class="rule">满1999元可用</div>
+            </div>
+            <div class="info">
+              <div class="name">
+                <span>买手券</span>限买手(首尔姐妹花)商品
               </div>
-              <div class="sku-pop" v-if="downType=='specs'">
-                <div class="sku-content">
-                  <div class="sku-info">
-                    <div
-                      class="pic"
-                      style="background-image: url(&quot;http://pic1.ymatou.com/G02/shangou/M06/E3/0C/CgvUBFn3-pCAMPZoAAP9GA9bkWQ240_1_1_n_w_lb.jpg&quot;);"
-                    ></div>
-                    <div class="desc">
-                      <span class="price">
-                        <i>¥&nbsp;</i>39~72
-                      </span>
-                      <span class="stock"></span>
-                      <span class="choosed">请选择: 规格分类</span>
-                    </div>
-                  </div>
-                  <div class="spec-wrap">
-                    <div class="spec">
-                      <div class="title">规格分类</div>
-                      <div class="options">
-                        <span class="sku active">黄色-2瓶</span>
-                        <span class="sku">黄色-经典款-70ml</span>
-                        {
-                        "value": ""
-                        }
-                      </div>
-                    </div>
-                  </div>
-                  <div class="purchase-amount">
-                    <div class="text">
-                      <span class="title">
-                        购买数量
-                        <br />
-                      </span>
-                    </div>
-                    <div class="amount">
-                      <input type="button" value="-" onclick class="btn-minus" />
-                      <span class="num">1</span>
-                      <input type="button" value="+" onclick class="btn-plus" />
-                    </div>
-                  </div>
-                </div>
-                <div class="preorder-pop-layer preorder-pop-layer-active"></div>
-                <div class="spec-confirm">
-                  <span class="half">加入购物车</span>
-                  <span class="half">立即购买</span>
-                </div>
+              <div class="time">2019.11.22-2019.11.25</div>
+              <div
+                module_index
+                module_name="coupon"
+                sproductid="66419dbb-8f6c-4c36-925d-5aba6c6ba017"
+                sellerid="20927755"
+                class="btn"
+              >点击领取</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="logistics-pop iphonex show" v-if="downType=='logistics-pop'">
+        <div class="item">
+          <div class="name">虚拟发货</div>
+          <div class="desc">支付成功且买手接单后，将自动闪电发货</div>
+        </div>
+        <div class="pic">
+          <img src="//s1.ymatou.com/itemm/static/img/log-pinyou.e8056fe.png" />
+        </div>
+      </div>
+      <div class="sku-pop" v-if="downType=='specs'">
+        <div class="sku-content">
+          <div class="sku-info">
+            <div
+              class="pic"
+              style="background-image: url(&quot;http://pic1.ymatou.com/G02/shangou/M06/E3/0C/CgvUBFn3-pCAMPZoAAP9GA9bkWQ240_1_1_n_w_lb.jpg&quot;);"
+            ></div>
+            <div class="desc">
+              <span class="price">
+                <i>¥&nbsp;</i>39~72
+              </span>
+              <span class="stock"></span>
+              <span class="choosed">请选择: 规格分类</span>
+            </div>
+          </div>
+          <div class="spec-wrap">
+            <div class="spec">
+              <div class="title">规格分类</div>
+              <div class="options">
+                <span class="sku active">黄色-2瓶</span>
+                <span class="sku">黄色-经典款-70ml</span>
+                {
+                "value": ""
+                }
               </div>
-            </van-action-sheet>
-  
+            </div>
+          </div>
+          <div class="purchase-amount">
+            <div class="text">
+              <span class="title">
+                购买数量
+                <br />
+              </span>
+            </div>
+            <div class="amount">
+              <input type="button" value="-" onclick class="btn-minus" />
+              <span class="num">1</span>
+              <input type="button" value="+" onclick class="btn-plus" />
+            </div>
+          </div>
+        </div>
+        <div class="preorder-pop-layer preorder-pop-layer-active"></div>
+        <div class="spec-confirm">
+          <span class="half">加入购物车</span>
+          <span class="half">立即购买</span>
+        </div>
+      </div>
+    </van-action-sheet>
   </div>
 </template>
 
@@ -480,7 +336,9 @@ import Vue from "vue";
 import myHeader from "components/header";
 import productList from "components/productList";
 import { Swipe, SwipeItem, ActionSheet } from "vant";
-import { get } from "../utils/http";
+import { get, post } from "../utils/http";
+import {CHANGEINVENTORY,SETINVENTORY} from '../store/action-types'
+import store from 'store'
 
 Vue.use(Swipe)
   .use(SwipeItem)
@@ -492,18 +350,24 @@ export default Vue.extend({
       current: 0,
       detailsImg: [],
       show: false,
-      downType: ""
+      downType: "",
+      picLength: "",
+      data: [],
+      notes: {}
     };
   },
-
+  computed: {
+    products() {
+      
+        
+        return this.$store.state.currentProduct;
+    
+    }
+  },
   methods: {
     onclickDown(type) {
       this.downType = type;
       this.show = true;
-      console.log(1);
-    },
-    aaaa(){
-      this.show=true
     },
     onChange(index) {
       this.current = index;
@@ -512,23 +376,45 @@ export default Vue.extend({
       this.show = false;
     }
   },
+  watch: {
+    $route() {
+      this.$router.go(0);
+    }
+  },
   async mounted() {
     var docEl = document.documentElement;
     var html = document.querySelector("html");
     var rem = docEl.clientWidth / 23.4;
     html.style.fontSize = rem + "px";
 
+    let currentId = this.$router.history.current.params.id;
     let { data } = await get({
       url: "/ajax/item/api/getProductDescriptionInfo",
       params: {
-        productId: "04f8bcd8-a103-40e0-8fa7-1e11bb19308f"
+        productId: currentId
       }
     });
-    this.detailsImg = [
-      ...this.detailsImg,
-      ...data.result.moduleList[2].picList
-    ];
-    console.log(this.detailsImg);
+    if (data.result.moduleList[2]) {
+      this.detailsImg = [
+        ...this.detailsImg,
+        ...data.result.moduleList[2].picList
+      ];
+      this.picLength = data.result.moduleList[2].picList.length;
+    }
+    this.data = [...data.result.moduleList];
+
+    let { data: notes } = await post({
+      url: "/ajax/item/api/getProductNote",
+      data: {
+        id: currentId,
+        pagesize: 1,
+        evaluationid: "",
+        isprod: 1,
+        userid: ""
+      }
+    });
+    this.notes = { ...notes };
+   
   },
   components: {
     myHeader,
@@ -614,9 +500,12 @@ export default Vue.extend({
     border-radius 0
   .details-swiper
     width 100%
+    height 22.8125rem
     overflow hidden
     position relative
     background-color #fff
+    .van-swipe
+      height 100%
     .custom-indicator
       color #fff
       background-color #252525
@@ -798,7 +687,6 @@ export default Vue.extend({
         margin-top 0.0625rem
         background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAeCAYAAABqpJ3BAAAABGdBTUEAALGPC/xhBQAABK5JREFUWAnVWEtoFEkY/qqn55XJOxgfiMaTMYmR6GUPCoqgXkTBmBhdRQRhT148eFLHx9WDoLA3Rcxu1BAQ8SAIccEXiWjYCCYXDS4SzZoMyWQmPel0t//fZibTPT1jJbJs8kNPVf2v/qvqf/WIsba2Rt0wfocQTcKyVCwBsACD7H1Dpv6m6qbZTpMGWBaIsFRAJXt/IWP/UOjU65eK1R521ikeyByUCAbBjwyIsjL4li93sPpraxHetcuBU5Ytg3/DBgduIQupDYT37kV4zx4p/cVHjqDs9GmQj2b42fjQzp2ZNU9Kjh9HpLnZgVvIQmoDyc5OJO/fl9KfuHMHvpUrEdq2LcPPN6C/eze33rgRgc2bEb95M4Nb6EQq64hIBHaQJ5N53yPCYYiiIps+9eQJfCtWQKmqglJZCR+NxvCwvWYGf00NUs+ewSJ9zMOjNTWVV3chghhpaTEp+8zdtwd3pKUF1swMkl1dHtTvKHaHyMGDeemFCIl795CgW14ISN2AjOLko0fQnj93sHLgl587h1RPT0EXNONxh9x8FlIbmCLjLKoThcAiIwyXIUX79kEEAkjcvQtzdLSQ+IJoQogJqQ2Y4+MFXxDavh2BhoYcnsCWLbASCRS3teXQ3Ijpt2+hUez8CMjX45YQf9LYr6rqX1Ib4JPkGJh6+NBbv6o66wS5TnDTJhgjI5gZGnLS/H4Em5qgv38P8+vXOX2kQwJ66Eb3V9++PZzmlZKyi5jPl5bJGbXHj8EPgygtRfmZMzC+fEHs/HmYsVgOPycFrgsT167B+PQph+6JEEJThWiuyjKe+aTqQKq3F9OvX3vqzUZy/q+4dAlKeTliFy96Gs/8HBPTfX2oiEbhX78+W0XeOblMb1VHxz9uBqkbmPnwwS3nWHOdiBw4gPDu3TDHxmCQaxQfOuTgyVnQjRrEW37hAlJPn2KyvT3vhmdlPQ9bqg4Et24FTBMpV5pkxSIUQtXVqwD5PZ9s6sULlJw4Yb9Tqa6GumYNpl+9mrVhdiB/D1Iljl2+bMuXnjxpZ7nRU6eAVMrJO7dKBRSltqKjY2gOBUjdgLpqlR3E2YLpuaVpiN+4AX1wMHOC41eu2GSuATpll/Q6LcPNHm+AZfX+fowODEBdvbqQ8Swa1C2ra+zYsf2Vt259TOuS2oDOLkRZKB+kXr7MIQUaGxGor7cD1U3kQGfg2pEes3slG+nxQ7WoSde0gX9bWztNIf5WFKVbagPTFMTzAnKnyOHD0CmFauTfbvBRK83glaHcvB7rsGlZR+3ezDTjnoHhFvLX1YE7ShngTFRJvu2jJm7i+nW7CXTL8e1wmrXy+7tbxHNNvUGJ1A1wleVCppOv5gNRUoLi1laEduyA8fkzYmfP2kYyv/0xQwWME4G6di3CxJN48CCfqnnhpTbArQRvoCAQXV23zk6H3DvBMDLsak0N/BQPDNbkpB30Wnd3hv4zE6k0+jMv+K9lpWKA0x7n9MUIUi7kp09ATqMaNWeLDaQ2kG7UFpvxbI9C/x7kTy2L0eIsm6jBG1SEz3eUvmze0GNm0Rb1lG0l4/uEovxK43ewolEOaKmgTsv8j6MpotElc+AFz+kbXC6m5gfj318AAAAASUVORK5CYII=')
         background-size cover
-      
   .logistics-freight-server
     width 100%
     overflow hidden
@@ -1108,80 +996,80 @@ export default Vue.extend({
       .half
         width 50%
   .coupon-pop
-        border-top 2px solid #000
-        background-color #fff
-        .title
-          width 100%
-          line-height 1.125rem
-          font-size 0.875rem
-          color #292929
-          padding 0.75rem
-        .list
-          width 100%
+    border-top 2px solid #000
+    background-color #fff
+    .title
+      width 100%
+      line-height 1.125rem
+      font-size 0.875rem
+      color #292929
+      padding 0.75rem
+    .list
+      width 100%
+      overflow hidden
+      padding 0 0.75rem
+      max-height 18.75rem
+      overflow-y auto
+      .item
+        width 100%
+        overflow hidden
+        height 5.625rem
+        display flex
+        margin-bottom 0.75rem
+        font-family PingFangSC-Regular
+        background #fff
+        position relative
+        .cart
+          width 6.5625rem
           overflow hidden
-          padding 0 0.75rem
-          max-height 18.75rem
-          overflow-y auto
-          .item
-            width 100%
-            overflow hidden
-            height 5.625rem
-            display flex
-            margin-bottom 0.75rem
-            font-family PingFangSC-Regular
-            background #fff
-            position relative
-            .cart
-              width 6.5625rem
-              overflow hidden
-              height 100%
-              background-color #ffa968
-              text-align center
-              color #fff
-              .price
-                margin-top 0.9375rem
-                font-size 1.0625rem
-                i
-                  font-size 1.875rem
-              .rule
-                font-size 0.75rem
-          .info
-            flex 1
-            -webkit-flex 1
-            height 100%
-            padding-left 0.9375rem
-            position relative
-            .name
-              width 100%
-              font-size 0.75rem
-              text-overflow ellipsis
-              -webkit-line-clamp 2
-              overflow hidden
-              white-space normal
-              line-height 1.125rem
-              margin-top 0.625rem
-              margin-bottom 1.25rem
-              span
-                background-color #ffa968
-                border-radius 0.1875rem
-                color #fff
-                padding 0 0.1875rem
-                margin-right 0.3125rem
-                font-size 0.625rem
-            .time
-              font-size 0.75rem
-              color #666
-              display inline-block
-            .btn
-              position absolute
-              right 0.625rem
-              bottom 0.9375rem
-              border 1px solid #e95656
-              padding 0.125rem 0.625rem
-              border-radius 0.625rem
-              font-size 0.75rem
-              color #e95656
-              background #fff
+          height 100%
+          background-color #ffa968
+          text-align center
+          color #fff
+          .price
+            margin-top 0.9375rem
+            font-size 1.0625rem
+            i
+              font-size 1.875rem
+          .rule
+            font-size 0.75rem
+      .info
+        flex 1
+        -webkit-flex 1
+        height 100%
+        padding-left 0.9375rem
+        position relative
+        .name
+          width 100%
+          font-size 0.75rem
+          text-overflow ellipsis
+          -webkit-line-clamp 2
+          overflow hidden
+          white-space normal
+          line-height 1.125rem
+          margin-top 0.625rem
+          margin-bottom 1.25rem
+          span
+            background-color #ffa968
+            border-radius 0.1875rem
+            color #fff
+            padding 0 0.1875rem
+            margin-right 0.3125rem
+            font-size 0.625rem
+        .time
+          font-size 0.75rem
+          color #666
+          display inline-block
+        .btn
+          position absolute
+          right 0.625rem
+          bottom 0.9375rem
+          border 1px solid #e95656
+          padding 0.125rem 0.625rem
+          border-radius 0.625rem
+          font-size 0.75rem
+          color #e95656
+          background #fff
   .buyer-rate
     width 100%
     // overflow: hidden;
@@ -1306,7 +1194,6 @@ export default Vue.extend({
                 text-overflow ellipsis
                 -webkit-line-clamp 1
                 overflow hidden
-                white-space normal
                 font-size 0.6875rem
                 color #666
               .grade
@@ -1317,6 +1204,21 @@ export default Vue.extend({
               .lever2
                 background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAABABJREFUSA3tVk1sVFUUPue+mWFK3pQUjcLKGGjLQP0nYiDEAgZBa1woiVEWpCuJtDMm1YU/hA2JiShlggsjgQ0kAglxiQtjMCEQDMRqy8y0ogEtRkMjYWbakrbv+N3X3tvb15npho0JTdpz7nd+3nfPOffeEt3/qV8Brm++N1Y5tcMrDfe9zyQvCvPjJKKI6Zwi9bGfLf7sfmUeoXJv83si1GOdmPanskM5u3YU+b49VuobLrBQagbOp94dandcSA6veqA8EXwtJC8Q84+wjZDQBiJJMfGtWIyfbegq/m5ilFGs9LyzQvSQ+SXh160topT7htcj+Qrry3wu4kKlyaA3JKP481Tmzecas4PbmeUj7Qf8wakgeM2NmUfI7yr8wswF68SyXo6sWWrXjoLKvOwsidg77a4rudVPoU1vaSzVlNzLvC8I7cz/GD90Y4XRtZxHKDQKnTROCPAqlaltZu1KVMYSwibyqUy+37UHwdQuxMNEf1Jpyo4HsLXGD7ZrRteyOiEvfsp1Egk63LXWxw6nHwGhNQ4+pzrTuDwNOp/58USa3xkoa0wEY030kokLlLpgdC2rEkp1D1xFlN0tPrxND7AbODkR2KQhHmmXxuLsdWJmegwZjVUOpbeCVFrr6PFvjV3F89P69N+qhEITq9kqiTSFA+xEYiDrtku7JjP5ISeE5Mtn4kLBJwZTHu81upE1CcU9tnOknXF1vGKC5Fh7EsO62awhq7TLsc6o5fHSB6jOk3qJwfrG7y6eiHrVJJTcUxhE0E8mAEfVztHo7Zub0MYGY4ueLos7SjnX8gTO+YchxDzClHjbMVu1JiHtgdNg24adrRrPtYVHFGd3wXbZL+g8uXWNEshx5IhjNu8q5p1+tv9v18fodQklvIQlpAMmZSKskvDsKQFct116bsrBv2ewuTaQGWfyXvUzxbOGQFTWJZTs7r+Gtl02QdhlR+lgcxqle9Rg9dqFinBprHQUcgvIjCJXh58tfGtjqyh1CWl/DO/scDM9j2l8w+TBB+ZdhsamyWBuvgD5nXizhj3Fm/zM4HfGXksuSMiT2edAzwB+3aNatV0i+1TlUOtXEtBukDnPifjaxd2Dl2qRcHF7nbtgVL/T23IRO10XxVnFHos+F9rnzsHWT4mCHiQfw7yhKtwMfQnursUaw2m7hfv6Bt7CSzEVP9qQGbhhci9YIe2onNNmAtGuQjUyGOIlmoz2C68GoQ5sphWVXQagEcP98MyTs5FY/sKc/mFyajnnOXANrq4SidMycfcAkrkVnXMCjf/oeGUlvG6z8BVgv7KiEbTOB73lwFfj35kW4D/EYl5nw578dcq6KU2Weyijb140teS2L9IDH8Xvr/+3FfgP4zl5Ker3ytUAAAAASUVORK5CYII=')
                 background-size cover
+              .lever1
+                background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAAAwFJREFUSA3tVs1rE1EQn3lba9Jm00ahSG8KrRVB0Sgq2oOX0qpQKpibHrwIIrXgTRD8E1Qq4l0RI4iirSII3kSwCrVSrejNFg+1xSRt87E7ztvkvd1Ns5u09NiFZGfe/Gb29+bj7QJsXuEZwHDzxlgpvbc5N2udJLQGiXB/fGTmeFDkpmoDpY9FM7/npxEoKm2EmDOj5m68NFGsxko9c6v7ChDdUDZhwMXW4R9jMk5ubmGIbHswM1voB4I4/wARnipsrbuoXsTU+2V2mmDfDvnjh+3MFrK91TiPflZjAcyW9ug7acvOzQ/atvWQgFIOmYoDEXysiDVvqwhVUGkvmiw649WVTHeOxFk+oXRAGMcLk7mybkwJFOc5J9e1nQWBxtoJxbZFXnKWltxAtQllYbGPiLZoHAq9EfPq9FRs5PsDjvNL21lobW5aO6HyLnFMByLoWhnt6dZ6ReD+OKXWeDqWY4mtro/CEB5SGM7gT7z8ZUHrNYSgkjFUPPbiS0XbVzbODG8eBzTGVy69yk1sa0KMD82O9AokFOtMjHO0rApNCD5CS6M9SSa1Q9nBUy61Jklzwx9UOiKtn5AzbQAvVDCelF66n2xTum1R3XLl7+7p8k2YHd7QMnZghqSRi6LLxuPblF3O9Mt1efH4ni5L/B9QrlLRSioM15diRtsnpQfdQwmZuOs1P+yfcub0O2XL3NvXwek/rNaZ0RNXdiVbuA1NgDM4/EHHclF+KZQQDr/Kc5qee1wGKH3OwPxKP2fIee0408XHhAejRbTJzRDV7x/pGEpIAgxvsxJtz/yZPNpIuYhuCubsNjSIug3dEKGWTuMN52JRgp3LoiGenT6lBpUrf/tRF3eaqXC22KAMYeprgR/6TAXmbr7Gk9Mu9bBylQS45w+CZSYin3WMEKFuyaSv8EybL1bAdEkMn+KaEG/gm/uO80VYpTREqDUSe8v5+LvKO2C6HByhbmjupYb6R/o1REh+C3F5fN8xYeVyGhrhgNoAn0ENE1I+m/fNDKw3A/8BRNgLYU/GGrQAAAAASUVORK5CYII=')
+                background-size cover
+              .lever3
+                background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAABAlJREFUSA3tVl1oHFUUPmc21exmZm1MKbYVoYVuFkriQxSb0ogUKa0/FIVEfBH0JQhp0lB88O9JtE8lTdMfU1BQH7QJiEVNRZCqFKRgEVuDuoEWpCmUopbdSdLN7s7xuzt7795JZtOHQn3pwO4995zvnPnu+bm7RHeflTPAK5tvzzo/ku2ucPCaCD2MFz0kTL84RCfdfbmDjSIbQjLRnSzM/v07kyQVWJjnvKTXzv3nS3HOhUOZARJ5W9ucBL3SMjjztd7D/gKifETEDnCnQGYDCXUrOxMf9YZzAxprryAcPtz30wIznReiteqDIBv9Rb9H22PW5w2WyEutTn6vMXKsoxVkPsReQGSHNzzTm943sw3xaxh5df5w54Mab6+GUE05YRulIs/Yey3L4cfSkLfrPY48xS9dmNP7QqnYjzKlkIvp9FDurNZj/5uScRCnEhSr2arbQilCyL2/+SucYr4Oiifk042dIrLK4NiJHISFnlQ2kKoYTKjo0PsE86yW7TVCKDwlmz7AUTbfPJLN2A5KliB4SuvQhAtu6711n9DQBv1bXsozWcyPZrYjk49XzcyXk+s6zukY9hohFBqckzagXAoiZUNmkETebTBLyqX0TbxqD/rmXT0Qc6PZLg7oM2QMvhQkHNnLfZPR7NUCLiPkrm+dgpuvX4imjBCaP5LtAqkHtB1DFCmX0ieHpv9S68JY+0ZM21gglbNCskHpxOE37WlUOvtZRqg6bURfGpBQj4x33af3QUVuVS4NpXI5eAfkB5CZZqVEZsss8q+ceaLJgJYIywgpO4piyoaTNfkLhV3aD8Gf1vLS6TJ6LTj8IzBqUK4olYoF//f9X69elKNbXA2z11hCHm/6BoHyGogxrZatcLxzLbM8qvU482RdXi55Q7kTuH+edZPpTcC+oRHIWtYvl/brvb3GEuLB00Wk6ZQF3C0TvQku3tylGlPpq9OFa8LCNBRVc6eHcwfQm1MGFMg2I1tCLCFlT9jNKtJWuHZh663KlR/LZOWDds+KHxHxsotGwWzdd0ZLDQml1ie+RRpuGGhFnhOWnWYfUy4u04CfD64VRjZPqt/GOjaUUPpHjI7ptJEtoSEh7pteRGG+MFiR/ejK1WrfqFziUBEvTQLQo6bV+ELIj7bvQVvvqPozXXfXtX1i27XckJACONa0aYfqGnMZKn3C4U/VirszlR/PrKnKmKb8SOZ1lqB2MfIiOYnepYQVVj0rEmppdr9DPv4JofZ3/HS17P3zZ9w1J0DJQ4fMFkYyV/3SIqZV3kP/NYctIC96g3/8YEez5RUJqelAeT63HRqVS2PwP6cfQV8mljP41C5UvsTsjLPjZvCTEomn/e7IKhNb7pGPO1vuyMvuvuT/ysB/lrtxn8TF2y8AAAAASUVORK5CYII=')
+                background-size cover
+            .lever4
+              background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAAA85JREFUSA3tVt9vVFUQnjm70G67txQealOeIFgaizRQpNFAgg8SCsSAgRpChOiLhJDVhGf/BGPTFI2JDz6oSWswGhGBBKhPRkkTsGkJPxKfbMID2PTe3W27e+8wc3fn7Fl6u2L0sTfpzjcz35wzd+acuQVYfRpXABu7/7t3/pPuI2hgo/fB/QuyGo0MtOWjuTcjiI7z5te9Dx+MuLukVaHxVzP+X4/vIlAmDkTMexlvK74/WVKOK/3h7nNA9JHaTArea809+El1+qJ3Q+AvjRDQSYTUSbH7oy/1BuUnk0TQFPOMGVa+SqMAh34tIsIkAXTIH2+2KVgK9qo/Qb5luQBeS3tmwuX4Qekr9seJUMrcEZ8phQOaDO9FWWyfdGNizjOGcVenkA67umIpO+M9qgPCZTz1R97qDLgdfaIj4qx3bmZacITUL7Ly4D3M/TavmkpbITFkNzRf4swL6uSOJyYUwNx+IlpjeWjqX4Tbxf4u8XOVrimPq7PLwbcUu7Iuocpboj0HvNqLC6M93W6AYIqig2rjShSz65tqMewo+KUB9afAXBRMN/elEWm72tHQPydUIZsxDRJZLkV1VeI35yLioOUktCtCfE38THzU0td5RXB+araXK9QsWJ4Upp8voWzX+su8UlAJ4zdDqEuoMNrTz0l1qh+eaVfFHh0SyYl/ia9PlGMcoj0/bC9nvBduV7j1v3UtiwPltgH8aGkEe+nz/nWqRyE1bNfCp92buRI75KXItH5s49wDjTSF704sqM+Vdg65Rm7KGF/7E2LjOZIOiv4BhnErebP47WN+QrtKS3A69hHMQJR/m+dVVaU3YsA/3PUwnmNmzQ0vNz2jdpGJCXm4+YqPD+c5G7neclOkbWP+Z9s7YLH4CidVffBbRSJpZLApCB+eqdhoN/N2u/4apl28xBYvbb6u2SooMSHM/bzII/8H3uKdasAgjR9P5WfvHIhIRkw8Z4oyJqr+WBToz23cql9igusg6ORK2yHLh/0qn6Nv8OzU3y5N8LJYJeSHew6HFNbOUtrswTLleOGhOBDhIn+Hjim/keT2nOWLcKEaF2YzbW38SXLmXS162aFWV0tX6hqnO6c6hHSUkPZbHerbVbMvR/zWO2tWnF4pGeGsmBAOTS9xAb+3CxGd58PULjpvsKxdlpcAuDo7rJngd4sTwIoJCdfIbUt6Em5XEk1sPDL4E4PbrN9A4kBUf8OEWpuz13mxJ0quyedvV74w38vnbq3GmhUmtPUrSJLyvxC35zvX92/bhWDs+eHbtdDycseUu94qXq3A/12Bpwm8VdG50subAAAAAElFTkSuQmCC')
+              background-size cover
+            .lever5
+              background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAABAVJREFUSA3tVl+IlFUUP+ebTdvZ+VZdaZUlSLZ2xxBMMFMjnwTRrIckl3xYH4SIyHTBB1EMhMqn0FVWpHxQpB7cpSiqTYT+PARBpIElNutDYKjtgyh+38zOOjv3+Dvf7L3z7Td/FEF88cDMOeeec+79nT/3zhA9puYV4ObmB7fmj/RsNIY/IZFxYQqYeAq7+STUKUSLyKPj7TvHdiVPcIBkeHVrcPXGJSZpVSdhzvutfpbfOVdKBqkeDPZux2EfWJuXom1tOy5/b/XwcO8BY2SP1ZOcmQpMs7szA3+Px20tVuG+3yZwyDkR2hStQQjvhGsg/2R9EnwTMu3UNWQ1kZ7b+kvcjvCXIp35kEf0HxKcT8Zk4AwTlxEzZVKl5+BTH9D0ZsPgFUAQpCyvgdUAkiMr20Nz85XpGEU0ylsv5K0uIozkXoz0FH2WeX/sH2u7Fwf4KmU6nvxOS1ldiQBV1WkppFvrcOgTzsCeJuIoGMpmocwB0sDfnss5w30IMwBVsmQ3BxjAnuLQ4t7kPmLMq3ZN25WZN7saA4NnaIXa0Z3zzIzO3j+5GaqGeKeJyputPlUy2raDVtd2hIezGwRoI0q0S9fs/GBWrmC4+8XQSty0oufxn20LW0a47+KdSnDt94wKqTnTNW+UmEPrio0UkKPC0OLlALXQLSTapesWEKR+3LRTAP8eFneZsvk8uFbKBYd6nnfxCaEGkN42tOFb5ye0Rj5djnmokClL03bJ8JJZ6NILSCqHnp0AP4nPGRsPYIuw/nN8T2eDUKdlyIv5NAK3qCOyawkngvUQ0coo+43KI6rTrokbpacwRf3+zi1fMu831jUYzGIMzElUL43Pgnwx2A3bXmu3vKZCavC5+wyyuG2dMC1R24JjSzuRfTSwFRuPWB/L0++OXfUHciNxMGrTNYy5qzza/rqNifO6gHjHD5Mo0zcxxw0yvDnFk8X1yA4d1RuE24VnIuZzT9ETPhtz6o7JTqwLSK2p+LCKzA/GL6wCmKbt0grqLXS7J4QyUXyY8wlzpDYElO5KnUUZbrmgsrwhLOucTrXtosniR5iVf/FKf4yhrT6cNojjbeIf7XKcNwRUeSv4a+eMa4sJn6t643ZJG8b+GVyI/uSPcjDYsw/r+oJrvEEdj6qcpIaA1NHT21aP6twudWPPG1WOMSvZ1ons96KKCX2otojYO4C/Hr9aNc4b9ludtOxBIfgfUseMIOa3/IGxGrDwT4eF27/jVi7Bxufx/tzEs7ECCNtdPN4mv2vZ29w3gpGqpaYV0rJj46/iYdAb3i74FzKpjpfh8wVAPYsqrbVg8KN9hTn1ZvvA5W2NwOg5iH04pM9E4fpfy8okT7fMkj/0fXo4Jz3e9RFX4C5FP43MExul2QAAAABJRU5ErkJggg==')
+              background-size cover
+            .lever6
+              background-image url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAYCAYAAACSuF9OAAAABGdBTUEAALGPC/xhBQAABBlJREFUSA3tVU1oXFUUPufemWkmmRdoF1XiTwklSUMaWhEXLahRLBbb2E1bLHZjoQ21bcyAXYklIK4UMqZFCIjiQrDJwp+FRigUs1EXhYYkZppYCNpGC4LB99KGzMw7nvMm9859M/lxYXHTCzPn/57vnnPuuwAP1voVwPXN/501yLXvIyidJqLnAVED0VWV0G9lzuUn3Cw1gIJcy3kieNM6Ibzr9c0OWtlh6GpXwh+/nUcCb0U97WVnuxwXoOGOVDBffI8o7I30CAsA+BcDakaEOzq56an6M5O/mRhlGEu1HiWAreYHhIetrYoJxm/vBYLt1hfx+yoXCOYLlwwYBvCdRw3NXtp7AgGLfPCHSoXCKTemBpCUEBHz1glpL33UscXKDsOVOeCIfHA94sqLA20nuEUnIx3CD5mm3Qcwe31haTnYQkAJ0ROEL7gxNYAiI8Fl48Sn0IuLpf1GdilXxgLiQ0x7b0xPGjsNH9EhhP0iSzWU1j14dKQkciFFPiu/XrElhZq1OiCdHDYOQrnkB11Z+HuX2rcxoA5HH6uO//v4y2x/bMU+5g5vY8/Mn419s4f4EK+w/RdnD1gVkNc79TP3u3JagP0ywG5gsRC+5MrV7cIQzho77/WN4V3q9c1czuxqOu7qYklcA6AaBgp3RjqizdEAA4wZH56BNdv198XWHVTk622WgivBB22v8Tzt46F5lGMXlFJfNPQe+xSxv2jchK5aITEkNdo5EplIdQuVRZ901SE4CQFi7eLqPFP2LM9PGMKXYRh+zICOMZin2dYtcpD7LJZDYtYEVHc2P8M9vm43RrJzdHdh/jmej7Sx1bSLoNnY5DYxeMUfvHe4dW/zgH9VscHhYLA1dsvWbhlH8Q2T4d4tG/DpdiwN7txe1zt5M1zndkW+UAEktynTlDqCR6eWxSbLz7WM8t4vRkKJ2whwJeL5b80KiUNKp2K3rUiFqEqE4A50rF0Sx8lshRDVhAtG7EhqVKgsAmwoc+X/dQFJNbht10wAhXTQH2hp54w2YXW7xBeRttkYAt/wFUo2Lzfz14p+gwqJI/e/MngIz3I2+XZEi8HGPoZGT4SLhue5SRne0BCh0/AJVGOGF2qRukqX11R5DniOkvy74Nhr2iU2PoR9LLknjzj+IBXmAX810iHOpTfV2w6IbkNA6Wx+jqvyk7up5averorefWTpEA09WS82+rBzM8MdkoOJrAlex55rBeHN2hCQOKrybTMxEeV25d23yzVSGi5y4qhtnPzh4K7/oz/QOuQvL82tfIdk1/cbsjPfunHC/ztAqdQIzwJ/emIrdgNdi7xVKqH2yIyJnkF08u8UM428zy2Nursxe+O8G2N4buf9W0T9ain3+eMlhDauWAhJNZE5M/XH/cv4YOf/oQL/AOa8fv1xHm4tAAAAAElFTkSuQmCC')
+              background-size cover
             .desc
               margin-top 0.625rem
               width 100%
@@ -1331,7 +1233,7 @@ export default Vue.extend({
         width 7.25rem
         height 7.25rem
         overflow hidden
-        background-image url('//s1.ymatou.com/itemm/static/img/placeholder.bb77734.png') // s1.ymatou.com/itemm/static/img/placeholder.bb77734.png);
+        background-image url('//s1.ymatou.com/itemm/static/img/placeholder.bb77734.png')
         background-size cover
         position relative
     .note-more

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from 'pages/home.vue'
 import details from 'pages/details.vue'
+import community from 'pages/community.vue'
+import communityDetail from 'pages/communityDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -16,10 +18,23 @@ const routes = [
     component: Home
   },
   {
-    path: '/details',
+    path: '/details/:id',
     name: 'details',
-    component: details
-  }
+    component: details,
+  },
+  {
+    path: '/community',
+    name: 'community',
+    component: community,
+    children:[
+      {
+        path:'/communityDetail',
+        name:'communityDetail',
+        component:communityDetail
+      },
+      
+  ]
+  },
 ]
 
 const router = new VueRouter({
