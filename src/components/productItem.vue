@@ -19,14 +19,15 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {CHANGEINVENTORY,SETINVENTORY} from '../store/action-types'
+import {CHANGEINVENTORY,SETINVENTORY} from '../store/modules/action-types'
 export default Vue.extend({
     props: ["item"],
     methods: {
       handleClickDetail() {
         this.$router.push(`/details/${this.item.id}`)
         // console.log(this.$store)
-        this.$store.commit(SETINVENTORY,this.item)
+        console.log(this.$store)
+        this.$store.commit('productDetail/' +SETINVENTORY,this.item,)
         
       }
     }

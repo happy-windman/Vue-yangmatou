@@ -1,0 +1,5 @@
+export const CHANGEINVENTORY = 'changeInventory'
+export const SETINVENTORY = 'productDetail/setInventory'
+export const SETCOMMUNITYDETAIL = 'communityDetail/setCommunityDetail'
+export const SETCAR = 'car/setCar'
+// export const LOADCAR = 'car/loadCar'

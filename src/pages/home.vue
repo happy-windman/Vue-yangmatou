@@ -1,5 +1,6 @@
 <template>
   <div class="home-wrap">
+    
     <myHeader :path="path"></myHeader>
     <div class="main">
       <div class="bscroll">
@@ -82,6 +83,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -114,7 +116,6 @@ export default Vue.extend({
     myHeader,
     xsqList,
     productList
-
   }
 });
 </script>

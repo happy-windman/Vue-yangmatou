@@ -21,7 +21,8 @@
             </div>
             <div class="product-price">
               <span class="interval-price">
-                <i>¥&nbsp;</i>{{products.price}}
+                <i>¥&nbsp;</i>
+                {{products.price}}
               </span>
             </div>
             <div class="product-activity">
@@ -140,7 +141,8 @@
                   <i class="num hign">4.8</i>
                 </span>
                 <span class="contry">
-                  <img :src="products.sellerInfo.countryIconUrl" />{{products.sellerInfo.countryName}}
+                  <img :src="products.sellerInfo.countryIconUrl" />
+                  {{products.sellerInfo.countryName}}
                 </span>
               </div>
             </div>
@@ -283,15 +285,13 @@
       <div class="sku-pop" v-if="downType=='specs'">
         <div class="sku-content">
           <div class="sku-info">
-            <div
-              class="pic"
-              style="background-image: url(&quot;http://pic1.ymatou.com/G02/shangou/M06/E3/0C/CgvUBFn3-pCAMPZoAAP9GA9bkWQ240_1_1_n_w_lb.jpg&quot;);"
-            ></div>
+            <div class="pic" :style="{'backgroundImage': 'url('+products.pic+')'}"></div>
             <div class="desc">
               <span class="price">
-                <i>¥&nbsp;</i>39~72
+                <i>¥&nbsp;</i>
+                {{carInfo.productList[0].price*carInfo.productList[0].count}}
               </span>
-              <span class="stock"></span>
+              <span class="stock">{{carInfo.productList[0].category}}</span>
               <span class="choosed">请选择: 规格分类</span>
             </div>
           </div>
@@ -299,8 +299,8 @@
             <div class="spec">
               <div class="title">规格分类</div>
               <div class="options">
-                <span class="sku active">黄色-2瓶</span>
-                <span class="sku">黄色-经典款-70ml</span>
+                <span class="sku" :class="{active:actives == 1}" @click="onActive('1')">黄色-经典款-70ml</span>
+                <span class="sku" :class="{active:actives == 2}" @click="onActive('2')">黄色-2瓶</span>
                 {
                 "value": ""
                 }
@@ -315,15 +315,15 @@
               </span>
             </div>
             <div class="amount">
-              <input type="button" value="-" onclick class="btn-minus" />
-              <span class="num">1</span>
-              <input type="button" value="+" onclick class="btn-plus" />
+              <input type="button" value="-" @click="onCut()" class="btn-minus" />
+              <span class="num">{{count}}</span>
+              <input type="button" value="+" @click="onAdd()" class="btn-plus" />
             </div>
           </div>
         </div>
         <div class="preorder-pop-layer preorder-pop-layer-active"></div>
         <div class="spec-confirm">
-          <span class="half">加入购物车</span>
+          <span class="half" @click="onAddCar()">加入购物车</span>
           <span class="half">立即购买</span>
         </div>
       </div>
@@ -337,8 +337,12 @@ import myHeader from "components/header";
 import productList from "components/productList";
 import { Swipe, SwipeItem, ActionSheet } from "vant";
 import { get, post } from "../utils/http";
-import {CHANGEINVENTORY,SETINVENTORY} from '../store/action-types'
-import store from 'store'
+import {
+  CHANGEINVENTORY,
+  SETINVENTORY,
+  SETCAR
+} from "../store/modules/action-types";
+import store from "store";
 
 Vue.use(Swipe)
   .use(SwipeItem)
@@ -353,15 +357,49 @@ export default Vue.extend({
       downType: "",
       picLength: "",
       data: [],
-      notes: {}
+      notes: {},
+      actives: "",
+      count:1,
+      specs: {
+        1: {
+          id: 1,
+          price: 39,
+          name: "黄色-经典款-70ml"
+        },
+        2: {
+          id: 2,
+          price: 72,
+          name: "黄色-2瓶"
+        }
+      },
+      
     };
   },
   computed: {
     products() {
-      
-        
-        return this.$store.state.currentProduct;
-    
+      return this.$store.state.productDetail.currentProduct;
+    },
+    carInfo() {
+      return {
+        id: this.products.sellerInfo.id,
+        shopTitle: this.products.sellerInfo.name,
+        countryName:this.products.sellerInfo.countryName,
+        countryIconUrl:this.products.sellerInfo.countryIconUrl,
+        avatarUrl:this.products.sellerInfo.avatarUrl,
+        checked: true,
+        productList: [
+          {
+            productId: this.products.id,
+            isChecked: true, // 商品选择状态
+            productTitle: this.products.name, // 产品名
+            categoryId: "",
+            category: "",
+            price: 0, // 价格
+            count: 1 ,// 数量
+            pic:this.products.pic,
+          }
+        ]
+      };
     }
   },
   methods: {
@@ -374,6 +412,31 @@ export default Vue.extend({
     },
     onCancel() {
       this.show = false;
+    },
+    onActive(num) {
+      this.actives = num;
+      // this.list.specs = this.specs[num];
+      this.carInfo.productList[0].categoryId=this.specs[num].id
+      this.carInfo.productList[0].category=this.specs[num].name
+      this.carInfo.productList[0].price=this.specs[num].price
+    },
+    onCut() {
+      if (this.carInfo.productList[0].count && this.carInfo.productList[0].count > 1) {
+        this.carInfo.productList[0].count--;
+        this.count=this.carInfo.productList[0].count
+      }
+    },
+    onAdd() {
+      console.log(this.carInfo.productList[0].count)
+      if (this.carInfo.productList[0].count && this.carInfo.productList[0].count < 99) {
+        this.carInfo.productList[0].count++;
+        this.count=this.carInfo.productList[0].count
+      }
+    },
+    onAddCar() {
+
+      this.$store.commit("car/" + [SETCAR], this.carInfo);
+      console.log(this.carInfo)
     }
   },
   watch: {
@@ -399,8 +462,10 @@ export default Vue.extend({
         ...this.detailsImg,
         ...data.result.moduleList[2].picList
       ];
+
       this.picLength = data.result.moduleList[2].picList.length;
     }
+
     this.data = [...data.result.moduleList];
 
     let { data: notes } = await post({
@@ -414,8 +479,8 @@ export default Vue.extend({
       }
     });
     this.notes = { ...notes };
-   
   },
+
   components: {
     myHeader,
     productList

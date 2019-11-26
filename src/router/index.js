@@ -4,6 +4,8 @@ import Home from 'pages/home.vue'
 import details from 'pages/details.vue'
 import community from 'pages/community.vue'
 import communityDetail from 'pages/communityDetail.vue'
+import communityList from 'pages/communityList.vue'
+import car from 'pages/car.vue'
 
 Vue.use(VueRouter)
 
@@ -25,16 +27,26 @@ const routes = [
   {
     path: '/community',
     name: 'community',
-    component: community,
+    component:community, 
+    redirect:'/community/communityList',
     children:[
       {
-        path:'/communityDetail',
-        name:'communityDetail',
-        component:communityDetail
+        path:'communityList',
+        name:'communityList',
+        component:communityList
       },
-      
+      {
+        path:'communityDetail/:id',
+        name:'communityDetail',
+        component:communityDetail,
+      },    
   ]
   },
+  {
+    path:'/car',
+    name:'car',
+    component:car
+  }
 ]
 
 const router = new VueRouter({

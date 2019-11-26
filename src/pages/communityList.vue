@@ -1,6 +1,5 @@
 <template>
-  <div id="root">
-    <myHeader path="community"></myHeader>
+
     <div id="main">
       <div id="content">
         <vue-waterfall-easy
@@ -117,7 +116,6 @@
                 <img class="user-logo" :src="props.value.userlogo" />
                 <span class="user-name">{{props.value.username}}</span>
               </div>
-
               <div class="buttons">
                 <i class="like-icon-base"></i>
                 <span class="collection-num">1256</span>
@@ -126,7 +124,6 @@
           </div>
         </vue-waterfall-easy>
       </div>
-    </div>
   </div>
 </template>
 
@@ -135,6 +132,7 @@ import Vue from "vue";
 import myHeader from "components/header";
 import vueWaterfallEasy from "vue-waterfall-easy";
 import { get } from "../utils/http";
+import {SETCOMMUNITYDETAIL } from '../store/modules/action-types'
 export default Vue.extend({
   async created() {
     this.imgsArr = await this.initImgsArr();
@@ -165,6 +163,7 @@ export default Vue.extend({
           Cookieid: ""
         }
       });
+      console.log(result.data.Result[0])
       //初始化图片数组的方法，把要加载的图片装入
       var arr = [];
       for (var i = 0; i < this.pageSize; i++) {
@@ -172,8 +171,11 @@ export default Vue.extend({
         arr.push({
           src: username.NoteInfo.TagImage[0].Pic,
           username: username.UserInfo.UserName,
+          userid: username.UserInfo.UserId,
           info: username.NoteInfo.Content,
-          userlogo: username.UserInfo.UserLogo
+          userlogo: username.UserInfo.UserLogo,
+          NoteId:username.NoteInfo.NoteId,
+          srcDetail:username.NoteInfo.TagImage
         });
       }
 
@@ -191,9 +193,11 @@ export default Vue.extend({
     clickFn(event, { index, value }) {
       // 阻止a标签跳转
       event.preventDefault();
-      
-      // console.log(this.$route.path='/community/communityDetail')
-      this.$router.push('/community/communityDetail')
+     
+      this.$router.push({
+          path:`/community/communityDetail/${value.NoteId}`,
+          })
+      this.$store.commit('communityDetail/' + SETCOMMUNITYDETAIL,value)
      
     }
   }

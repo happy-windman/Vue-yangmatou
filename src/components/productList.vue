@@ -64,7 +64,7 @@ export default Vue.extend({
     this.productList = [...this.productList, ...result.data.likeProductInfo];
     this.loadMore = false;
     this.$store.state.all=[...this.productList]
-
+    await this.$nextTick();
     let bscroll = new BScroll(".bscroll", {
       pullUpLoad: true,
       // click: true,
