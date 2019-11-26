@@ -1,111 +1,100 @@
 <template>
- 
-    <div class="car-content">
-      <header class="topbar">
-        <div class="top-title">
-          购物车({{allCount}})
-          <i></i>
-        </div>
-        <div class="top-home">
-          <a href="//m.ymatou.com/home/ymatou">
-            <img
-              src="data:image/png;base64,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"
-            />
-          </a>
-        </div>
-        <div class="top-user">
-          <a href="//m.ymatou.com/myorder/page/personalcenter">
-            <img
-              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAABPVJREFUWAm9mGtoW2UYx5tLSzNa2g6dbRLsqA5UFMW6yr5YpjUqm34QVjeGitg2abvQdUhBEU39MF0N9EPtvVOng3lBmQ6lTtQP3l0rzqkfBAVrm8Q6V5i01qQXf8/hZJ5kPW9Oos0LL+/leZ7/83+f93qOrSCH1N7eXp1IJO5dWVnZYbPZrlhdXa0EZoEcof2V3W4/Tt/4yMhIIlt4WzYGwWDw0sXFxRA2LTh0qmwh9hPyx0ZHR19T6aXLLBPy+/03LS8vvwWAWwd5H6dvQuwU7d+obyAy1ejcQXuPQe8Fr9cbCIVCcd1OWVgiBJltTM8HOHfh+AyO/cPDw5+bIXd2drrm5+cPoB/SIznu8/l2NjY2LpvZJPszEgoEAp6lpaUJDCoh805ZWdl94XB4PgmgKpuamm5Ffpxcim0v03dApS8yeyYFpuBZdITM1yUlJbuskhHcsbGxDx0Ox15sV4jU/paWlhsz+VMSYqquB2i3AAL0QG9v71+ZANPlTO0J+l4k28A6mC5PbysJAbBXgMivEu7v042ttgsLC0P6oG7v6Oi4TGWXidDdYgxYVls33eHAwMCv9H3BAO0LCws70uXGtikhtqkdgC268idGoxzrGgaDu0plb0podnZ2E4YOABKsgz9UIFZkDC4qehwfVSp9U0JCRAwlzN3d3RmPB5UTkYGnneyUSypdU0L9/f0SFTldHbFYTDkqlQODzCt1CEUMfRdVTQnpxqel5GC87SLLLDuIdBLjG5VpJkJyd8mo7leBZJI1NzffgM615Hh5efm4Sl9JCMOXIfM3o2vQrwEVlqkM+6dFCNYrPT09f5oqIlAS4j0zBdhzOthLHP1ZryWiI/fXnTKwoqKiJ1RkRKYkJAqAhAA7AzEPW/Ykl+1m6beSiGo7dj267n42yi+Z7CxtZyHBJfsx4F7InSU/7na7D3N4rrmFW1tba9gIz6C/Swigf5q81coL0hIhAW1ra6vk2SpP05ulTZLn6tuUp3gfxSC8gfZm5D7K7ZQpL0r6fkC3mTvxMzE2S0pCzP9WDPfxBmqTZwcRcUYikYdx9iTZdD3hPIH8KE+PMES3gfEU2U2/RDQIqSHKNZMpIcjUA3oCkPPFxcXX9PX1nU8iCLFoNFovj3z6aoQcenKIyqH3Jbf76/qFqpl0dXWVzs3NjaC3W+soKAjxVurW6ynFmoQgcxdab5BjTqezYXBw8OcUqxwb7NIuBnFIzJnmIGtK28FGOIexIXXWypUYfUR1ipBvHxoamkrXybU9OTn5aW1t7SL2DWRfXV3dexMTEzNGvJRtT0ht8Xj8sCgwBTshk6JsNMy1zvo5BPYxfDlZX0eZ/mIjVgohQroP4S0YPEo45btqXVJFRYUfH9OQ2jI9PR0wOrmwhoQpwiiK30FGSK0aFf/vOu/1h4jQ8/iZ9Xg81fiXqfz3pJ6ZmbmHdjmsw+tNRhxXVVUdwY9cTZs4SrSnsvRfmDIED6JwltX/rgjWOxER+TQ6In4o9yT9aYRYO5fQIZ/Ax6wc70nj/1oyePmIFEL1SSyNENv8ajrkCJDtnrfEffgtsyJ/TTbKcSOONUJ0Xi4NmE5Jma/EtMlV8qP44zKukVIjRKkRcrlceSUkBAiC9kVDuVHaSUKl1M9xX/0unXlO2hcxs3RO/GqEuAwP8hBLPivyyoeF/Qj35XVsppN5dWzV2T/Y7//hq6F8rwAAAABJRU5ErkJggg=="
-            />
-          </a>
-        </div>
-      </header>
-      <div class="main">
-        <div class="notice">海外买手会根据现行国家政策要求，通过不同的物流方式分别发货，其实对你没有影响啦~</div>
-        <div class="seller-wrap">
-          <div class="seller" v-for="(seller,i) in carList" :key="i">
-            <div class="seller-info">
-          
-              <div class="checkboxp">
-              <van-checkbox v-model="seller.checked" @click="checkShop(seller)" ></van-checkbox>
-              </div>
-              <div class="info">
-                <div class="head-img">
-                  <span
-                    class="img lazyload transition"
-                    :style="{'backgroundImage': 'url('+seller.avatarUrl+')'}"
-                  ></span>
-              
-                </div>
-                <div class="desc">
-                  <span class="name">{{seller.shopTitle}}</span>
-                  <span class="country">
-                    <img :src="seller.countryIconUrl" class="img" />
-                    {{seller.countryName}}
-                  </span>
-                </div>
-              </div>
-              <div class="spacing"></div>
+  <div class="car-content">
+    <header class="topbar">
+      <div class="top-title">
+        购物车({{allCount}})
+        <i></i>
+      </div>
+      <div class="top-home">
+        <a href="/home">
+          <img
+            src="data:image/png;base64,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"
+          />
+        </a>
+      </div>
+      <div class="top-user">
+        <a href="//m.ymatou.com/myorder/page/personalcenter">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAABPVJREFUWAm9mGtoW2UYx5tLSzNa2g6dbRLsqA5UFMW6yr5YpjUqm34QVjeGitg2abvQdUhBEU39MF0N9EPtvVOng3lBmQ6lTtQP3l0rzqkfBAVrm8Q6V5i01qQXf8/hZJ5kPW9Oos0LL+/leZ7/83+f93qOrSCH1N7eXp1IJO5dWVnZYbPZrlhdXa0EZoEcof2V3W4/Tt/4yMhIIlt4WzYGwWDw0sXFxRA2LTh0qmwh9hPyx0ZHR19T6aXLLBPy+/03LS8vvwWAWwd5H6dvQuwU7d+obyAy1ejcQXuPQe8Fr9cbCIVCcd1OWVgiBJltTM8HOHfh+AyO/cPDw5+bIXd2drrm5+cPoB/SIznu8/l2NjY2LpvZJPszEgoEAp6lpaUJDCoh805ZWdl94XB4PgmgKpuamm5Ffpxcim0v03dApS8yeyYFpuBZdITM1yUlJbuskhHcsbGxDx0Ox15sV4jU/paWlhsz+VMSYqquB2i3AAL0QG9v71+ZANPlTO0J+l4k28A6mC5PbysJAbBXgMivEu7v042ttgsLC0P6oG7v6Oi4TGWXidDdYgxYVls33eHAwMCv9H3BAO0LCws70uXGtikhtqkdgC268idGoxzrGgaDu0plb0podnZ2E4YOABKsgz9UIFZkDC4qehwfVSp9U0JCRAwlzN3d3RmPB5UTkYGnneyUSypdU0L9/f0SFTldHbFYTDkqlQODzCt1CEUMfRdVTQnpxqel5GC87SLLLDuIdBLjG5VpJkJyd8mo7leBZJI1NzffgM615Hh5efm4Sl9JCMOXIfM3o2vQrwEVlqkM+6dFCNYrPT09f5oqIlAS4j0zBdhzOthLHP1ZryWiI/fXnTKwoqKiJ1RkRKYkJAqAhAA7AzEPW/Ykl+1m6beSiGo7dj267n42yi+Z7CxtZyHBJfsx4F7InSU/7na7D3N4rrmFW1tba9gIz6C/Swigf5q81coL0hIhAW1ra6vk2SpP05ulTZLn6tuUp3gfxSC8gfZm5D7K7ZQpL0r6fkC3mTvxMzE2S0pCzP9WDPfxBmqTZwcRcUYikYdx9iTZdD3hPIH8KE+PMES3gfEU2U2/RDQIqSHKNZMpIcjUA3oCkPPFxcXX9PX1nU8iCLFoNFovj3z6aoQcenKIyqH3Jbf76/qFqpl0dXWVzs3NjaC3W+soKAjxVurW6ynFmoQgcxdab5BjTqezYXBw8OcUqxwb7NIuBnFIzJnmIGtK28FGOIexIXXWypUYfUR1ipBvHxoamkrXybU9OTn5aW1t7SL2DWRfXV3dexMTEzNGvJRtT0ht8Xj8sCgwBTshk6JsNMy1zvo5BPYxfDlZX0eZ/mIjVgohQroP4S0YPEo45btqXVJFRYUfH9OQ2jI9PR0wOrmwhoQpwiiK30FGSK0aFf/vOu/1h4jQ8/iZ9Xg81fiXqfz3pJ6ZmbmHdjmsw+tNRhxXVVUdwY9cTZs4SrSnsvRfmDIED6JwltX/rgjWOxER+TQ6In4o9yT9aYRYO5fQIZ/Ax6wc70nj/1oyePmIFEL1SSyNENv8ajrkCJDtnrfEffgtsyJ/TTbKcSOONUJ0Xi4NmE5Jma/EtMlV8qP44zKukVIjRKkRcrlceSUkBAiC9kVDuVHaSUKl1M9xX/0unXlO2hcxs3RO/GqEuAwP8hBLPivyyoeF/Qj35XVsppN5dWzV2T/Y7//hq6F8rwAAAABJRU5ErkJggg=="
+          />
+        </a>
+      </div>
+    </header>
+    <div class="main">
+      <div class="notice">海外买手会根据现行国家政策要求，通过不同的物流方式分别发货，其实对你没有影响啦~</div>
+      <div class="seller-wrap">
+        <div class="seller" v-for="(seller,i) in carList" :key="i">
+          <div class="seller-info">
+            <div class="checkboxp">
+              <van-checkbox v-model="seller.checked" @click="checkShop(seller)"></van-checkbox>
             </div>
-            <div class="promotion-wrap">
-              <div class="promotion">
-                <div class="product-list">
-                  
-                    <div class="product" v-for="(product,i) in seller.productList" :key="i">
-                      <div class="content">
-                  
-                        <div class="checkboxp">
-                        <van-checkbox @click="ischeck(seller,product)" v-model="product.isChecked" ></van-checkbox>
+            <div class="info">
+              <div class="head-img">
+                <span
+                  class="img lazyload transition"
+                  :style="{'backgroundImage': 'url('+seller.avatarUrl+')'}"
+                ></span>
+              </div>
+              <div class="desc">
+                <span class="name">{{seller.shopTitle}}</span>
+                <span class="country">
+                  <img :src="seller.countryIconUrl" class="img" />
+                  {{seller.countryName}}
+                </span>
+              </div>
+            </div>
+            <div class="spacing"></div>
+          </div>
+          <div class="promotion-wrap">
+            <div class="promotion">
+              <div class="product-list">
+                <div class="product" v-for="(product,i) in seller.productList" :key="i">
+                  <div class="content">
+                    <div class="checkboxp">
+                      <van-checkbox @click="ischeck(seller,product)" v-model="product.isChecked"></van-checkbox>
+                    </div>
+                    <div class="prod-warp">
+                      <div class="prod-info">
+                        <div class="pic">
+                          <img class="lazyload transition" :src="product.pic" style="opacity: 1;" />
                         </div>
-                        <div class="prod-warp">
-                          <div class="prod-info">
-                            <div class="pic">
-                              <img
-                                class="lazyload transition"
-                                :src="product.pic"
-                                style="opacity: 1;"
-                              />
-                            </div>
-                            <div class="desc">
-                              <div class="name">
-                                <i class="tag-taxes">包邮包税</i>
-                                <span>{{product.productTitle}}</span>
-                              </div>
-                              <div class="sku">{{product.category}}</div>
-                              <div class="preadd-desc">黑五狂欢价 9小时后恢复原价</div>
-                              <div class="serve">
-                                <span class="tag-py">拼邮</span>
-                              </div>
-                            </div>
+                        <div class="desc">
+                          <div class="name">
+                            <i class="tag-taxes">包邮包税</i>
+                            <span>{{product.productTitle}}</span>
                           </div>
-                        </div>
-                        <div class="operation">
-                          <div class="price">¥ {{product.price}}</div>
-                          <van-tag type="warning">活动价</van-tag>
-                          <div class="amount">
-                            <span class="mini">一</span>
-                            <span class="num">{{product.count}}</span>
-                            <span class="plus">+</span>
-                          </div>
-                          <div class="delete">
-                            <i></i>
+                          <div class="sku">{{product.category}}</div>
+                          <div class="preadd-desc">黑五狂欢价 9小时后恢复原价</div>
+                          <div class="serve">
+                            <span class="tag-py">拼邮</span>
                           </div>
                         </div>
                       </div>
                     </div>
-               
+                    <div class="operation">
+                      <div class="price">¥ {{product.price}}</div>
+                      <van-tag type="warning">活动价</van-tag>
+                      <div class="amount">
+                        <span class="mini" @click="cut(product)">一</span>
+                        <span class="num">{{product.count}}</span>
+                        <span class="plus" @click="add(product)">+</span>
+                      </div>
+                      <div class="delete">
+                        <i></i>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-               
               </div>
             </div>
           </div>
         </div>
       </div>
-  
-    <van-submit-bar :price="3050" button-text="提交订单">
+    </div>
+
+    <van-submit-bar :price="allPrice" :button-text="'去结算('+allCount+')'">
       <span style="width:10px;"></span>
-      <van-checkbox v-model="isCheckAll" @click="allChecked()" >全选</van-checkbox>
+      <van-checkbox v-model="isCheckAll" @click="allChecked()">全选</van-checkbox>
       <span slot="tip">
         你的收货地址不支持同城送,
         <span @click="aa">修改地址</span>
@@ -118,7 +107,7 @@
 import _ from "lodash";
 import Vue from "vue";
 import { Tag, SubmitBar, Checkbox, CheckboxGroup } from "vant";
-
+import { SETCAR, LOADCAR } from "../store/modules/action-types";
 Vue.use(Tag)
   .use(SubmitBar)
   .use(Checkbox)
@@ -129,32 +118,28 @@ export default Vue.extend({
     var html = document.querySelector("html");
     var rem = docEl.clientWidth / 23.4;
     html.style.fontSize = rem + "px";
+    this.carList = this.$store.state.car.car;
 
-    this.carList = this.$store.state.car.car
-     
-    // this.carList = _.groupBy(this.carList.car, value => {
-    //   return value.sellerInfo.id;
-    // });
-   console.log(this.carList) 
-    
+    this.allShops = this.carList.length;
   },
   data() {
     return {
       carList: {},
       price: "",
       result: [],
-      sellId:'',
+      sellId: "",
 
-      isCheckAll: true, // 是否全选
-      allPrice: 0, // 所有价格
-      allShops: 0, // 被选中的商店数量
-      allCount: 0 // 被选中的产品数量
+      isCheckAll: "",
+      allPrice: 0,
+      allShops: 0,
+      allCount: 0
     };
   },
-  watch:{
-    carList:{
+  watch: {
+    carList: {
       deep: true,
-      handler(val, oldval){
+      handler(val, oldval) {
+        this._allPrice();
       }
     }
   },
@@ -162,55 +147,86 @@ export default Vue.extend({
     aa() {
       console.log(this.result);
     },
-    allChecked(){
-      for(let i=0;i<this.carList.length;i++){
-        if(!this.isCheckAll){
-          this.isCheckAll=true
-          this._shopTrue(this.carList[i])
-        } else {
-          this.isCheckAll=false
-          this._shopFalse(this.carList[i])
+    add(pro) {
+      if (pro.count < 99) pro.count++;
+    },
+    cut(pro) {
+      if (pro.count > 1) pro.count--;
+    },
+    allChecked() {
+      this.isCheckAll = !this.isCheckAll;
+      this.isCheckAll
+        ? this.carList.forEach(item => {
+            this._shopTrue(item);
+          })
+        : this.carList.forEach(item => {
+            this._shopFalse(item);
+          });
+    },
+    checkShop(seller) {
+      !seller.checked ? this._shopTrue(seller) : this._shopFalse(seller);
+    },
+    _shopTrue(seller) {
+      for (let i = 0; i < seller.productList.length; i++) {
+        if (seller.productList[i].isChecked == false) {
+          this._checkTrue(seller, seller.productList[i]);
         }
       }
     },
-    checkShop(seller){
-      !seller.checked ? this._shopTrue(seller) : this._shopFalse(seller)
+    _shopFalse(seller) {
+      for (let i = 0; i < seller.productList.length; i++) {
+        console.log(seller.productList[i].isChecked);
+        if (seller.productList[i].isChecked == true) {
+          this._checkFalse(seller, seller.productList[i]);
+        }
+      }
     },
-    _shopTrue(seller){
-      for(let i=0;i<seller.productList.length;i++)
-      {
-        if(seller.productList[i].isChecked==false)
-          {
-            this._checkTrue(seller,seller.productList[i])
+    ischeck(seller, pro) {
+      !pro.isChecked
+        ? this._checkTrue(seller, pro)
+        : this._checkFalse(seller, pro);
+    },
+    _checkTrue(seller, pro) {
+      pro.isChecked = true;
+      ++seller.checkCount;
+      if (seller.checkCount == seller.productList.length) {
+        seller.checked = true;
+      }
+      console.log(this.allShops);
+      if (seller.checked) {
+        if (++this.allShops === this.carList.length) {
+          this.isCheckAll = true;
+        } else {
+          this.isCheckAll = false;
+        }
+      }
+    },
+    _checkFalse(seller, pro) {
+      pro.isChecked = false;
+      --seller.checkCount;
+      if (seller.checked) {
+        seller.checked = false;
+        this.allShops--;
+      }
+      this.isCheckAll = false;
+    },
+    _allPrice() {
+      let result = 0;
+      let allCount = 0;
+      this.carList.forEach(seller => {
+        seller.productList.forEach(pro => {
+          if (pro.isChecked) {
+            result = pro.count * pro.price + result;
+            allCount += pro.count;
           }
-      }
-    },
-    _shopFalse(seller){
-      for(let i=0;i<seller.productList.length;i++)
-      {   console.log(seller.productList[i].isChecked)
-        if(seller.productList[i].isChecked==true)
-          { 
-            this._checkFalse(seller,seller.productList[i])
-          }
-      }
-    },
-    ischeck(seller,pro){
-      !pro.isChecked ? this._checkTrue(seller, pro) : this._checkFalse(seller, pro)
-    },
-    _checkTrue(seller, pro){
-      pro.isChecked=true
-      ++seller.checkCount
-      if(seller.checkCount==seller.productList.length){
-        seller.checked=true
-      }
-    },
-    _checkFalse(seller, pro){
-      pro.isChecked=false
-      --seller.checkCount
-      if(seller.checkCount!=seller.productList.length){
-        seller.checked=false
-      }
-    },
+        });
+      });
+      this.allPrice = result * 100;
+      this.allCount = allCount;
+
+      console.log(this.allPrice, this.allCount);
+      this.$store.commit("car/" + LOADCAR, this.carList);
+    }
   }
 });
 </script>
@@ -231,9 +247,9 @@ export default Vue.extend({
 .topbar
   background #fff
   width 100%
-  position: sticky;
-  top: 0;
-  z-index: 999;
+  position sticky
+  top 0
+  z-index 999
   .top-title
     width 100%
     color #515151
@@ -269,7 +285,7 @@ export default Vue.extend({
   color #9b9b9b
 .seller-wrap
   background #fff
-  margin-bottom: 84px;
+  margin-bottom 84px
   .seller
     width 100%
     overflow hidden
@@ -327,13 +343,8 @@ export default Vue.extend({
           position relative
           height 2.5rem
           .name
-            text-overflow: ellipsis;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            word-wrap: break-word;
-            display: -webkit-box;
-            overflow: hidden;
-            white-space: normal;
+            overflow hidden
+            white-space normal
             padding-top 0.3125rem
             font-size 0.75rem
             color #646464
@@ -426,14 +437,16 @@ export default Vue.extend({
                 padding-right 0.3125rem
                 .name
                   width 100%
-                  height 1.75rem
+                  // height 1.85rem
                   line-height 0.875rem
-                  text-overflow ellipsis
-                  -webkit-line-clamp 2
-                  overflow hidden
                   white-space normal
                   font-size 0.75rem
                   color #383838
+                  overflow hidden
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  text-overflow: ellipsis;
+                  -webkit-line-clamp 2 
                   i
                     display inline-block
                     position relative

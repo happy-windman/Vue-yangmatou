@@ -23,7 +23,7 @@
         </div>
         <div class="icon-list" v-if="!(path==community)">
           <a
-            href="//m.ymatou.com/shoppingcart/"
+            href="/car"
             id="load-shopcart-icon"
           >
             <img

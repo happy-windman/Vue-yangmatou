@@ -38,14 +38,15 @@ const mutations = {
             state.car[i].checkCount=state.car[i].productList.length
         }
         store.set('car', state.car)
+    },
+    [LOADCAR](state,car){
+        state.car = car
+        console.log(state.car)
+        store.set('car',state.car)
     }
 }
 
-// const action = {
-//     [LOADCAR]({commit, dispatch, rootState},products){
-//         commit(SETCAR,products)
-//     }
-// }
+
 
 export default {
     namespaced: true,
